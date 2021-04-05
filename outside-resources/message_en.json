@@ -1,0 +1,15 @@
+{
+  "1000": "Record not found.",
+  "1001": "Unexpected error. Please contact admin for support.",
+  "1002": "The ISBN is duplicate. Please enter an other isbn.",
+  "2000": "The description can not be blank.",
+  "2001": "The title can not be blank.",
+  "2003": "Author name must be between 1 and 256 characters.",
+  "2004": "The publisher can not be blank.",
+  "2005": "Total pages must be greater than or equal 0.",
+  "2006": "Total pages must be smaller than 2.147.483.687.",
+  "3000": "Successfully deleted data.",
+  "3001": "Successfully added data.",
+  "3002": "Successfully edited data.",
+  "3003": "Successful data retrieval."
+}

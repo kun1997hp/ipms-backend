@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@//10.240.182.33:1521/ipmspdb
+    username: ipms
+    password: IpmsPro#123
+    driver-class-name: oracle.jdbc.OracleDriver
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+
+
+
+# (Optional) Config URIs for openapi
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui
+#     Using custom OpenApi file
+#    url: /sw.yaml
+
+# (Optional) Setting port
+#server:
+#  port: 1521

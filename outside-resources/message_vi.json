@@ -1,0 +1,15 @@
+{
+  "1000": "Không tìm thấy bản ghi.",
+  "1001": "Lỗi không mong muốn. Vui lòng liên hệ admin để được hỗ trợ.",
+  "1002": "ISBN đã tồn tại. Vui lòng sử dụng ISBN khác.",
+  "2000": "Mô tả không được để trống.",
+  "2001": "Tiêu đề không được để trống.",
+  "2003": "Tên tác giả phải có từ 1 đến 256 ký tự.",
+  "2004": "Nhà xuất bản không được để trống.",
+  "2005": "Số trang phải lớn hơn 0.",
+  "2006": "Số trang phải nhỏ hơn 2147,483,687.",
+  "3000": "Xóa thành công.",
+  "3001": "Thêm thành công.",
+  "3002": "Sửa thành công.",
+  "3003": "Lấy dữ liệu thành công."
+}
