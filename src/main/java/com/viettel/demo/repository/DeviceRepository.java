@@ -22,12 +22,7 @@ public interface DeviceRepository extends JpaRepository<Device, Integer>,
     List<Device> findAllByDeviceNameEquals(String deviceName);
 
     @Query("select b from Device b")
-    Page<Device> findAllUsingJPQL(Specification<Device> specs, Pageable pageable);
-
-    @Query("select b from Device b")
     Page<Device> findAllUsingJPQLPagingAndSorting(Specification<Device>specs, Pageable pageable);
-
-    Page<Device> findAll(Specification<Device> specs, Pageable pageable);
 
     Device getDeviceByDeviceId(int deviceId);
 

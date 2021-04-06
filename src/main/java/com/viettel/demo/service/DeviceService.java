@@ -1,9 +1,5 @@
 package com.viettel.demo.service;
 
-import com.querydsl.core.Tuple;
-import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.viettel.demo.common.DataTable;
 import com.viettel.demo.common.message.ErrorMessage;
 import com.viettel.demo.exception.customexception.BusinessException;
@@ -11,7 +7,6 @@ import com.viettel.demo.exception.customexception.RecordNotFoundException;
 import com.viettel.demo.model.entity.*;
 import com.viettel.demo.model.form.DeviceForm;
 import com.viettel.demo.repository.DeviceRepository;
-import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -87,14 +82,6 @@ public class DeviceService {
         deviceRepository.save(device);
     }
 
-    public Page<Device> findAllUsingFunctionName(Pageable pageable){
-        return deviceRepository.findAll(pageable);
-    }
-
-    public Page<Device> findAllUsingJPQL(Specification<Device> specs, Pageable pageable){
-        return deviceRepository.findAllUsingJPQL(Specification.where(specs), pageable);
-    }
-
     public Device findDeviceById(String deviceId) {
         Device device = deviceRepository.getDeviceByDeviceId(Integer.parseInt(deviceId));
         if (device == null) {
@@ -103,12 +90,8 @@ public class DeviceService {
         return device;
     }
     public DataTable findAllUsingJPQLPagingAndSorting(Specification<Device> specs, Pageable pageable){
-        Page<Device> devices = deviceRepository.findAll(specs, pageable);
+        Page<Device> devices = deviceRepository.findAllUsingJPQLPagingAndSorting(specs, pageable);
         return new DataTable(devices);
     }
 
-    // Select some field of table, other field is null
-    public List<?> queryFromQuerydsl(){
-        return null;
-    }
 }
