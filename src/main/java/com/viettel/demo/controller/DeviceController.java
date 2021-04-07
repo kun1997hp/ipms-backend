@@ -33,6 +33,13 @@ public class DeviceController {
     @Autowired
     private SuccessMessage successMessage;
 
+    @GetMapping("/{deviceId}")
+    public ResponseEntity<ObjectResponse> getDevice(@PathVariable("deviceId") String deviceId) {
+        Device device = deviceService.findDeviceById(deviceId);
+        ObjectResponse response = new ObjectResponse(successMessage.getView(), device);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<ObjectResponse> postDevice(@Valid @RequestBody DeviceForm deviceForm) {
         Device device = deviceService.insertDevice(deviceForm);
@@ -54,7 +61,7 @@ public class DeviceController {
 
     @GetMapping("/v0")
     public ResponseEntity<DataTableResponse> getDevices(Specification<Device> specs, Pageable pageable) {
-        DataTable dataTable = deviceService.findAllUsingJPQLPagingAndSorting(specs, pageable);
+        DataTable dataTable = deviceService.findAllPagingAndSorting(specs, pageable);
         DataTableResponse response = new DataTableResponse(successMessage.getView(), dataTable);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

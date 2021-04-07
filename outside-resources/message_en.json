@@ -1,7 +1,7 @@
 {
   "1000": "Record not found.",
   "1001": "Unexpected error. Please contact admin for support.",
-  "1002": "The ISBN is duplicate. Please enter an other isbn.",
+  "1002": "The ID is duplicate. Please enter an other ID.",
   "2000": "The description can not be blank.",
   "2001": "The title can not be blank.",
   "2003": "Author name must be between 1 and 256 characters.",

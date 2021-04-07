@@ -6,6 +6,7 @@ import com.viettel.demo.exception.customexception.BusinessException;
 import com.viettel.demo.exception.customexception.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +47,12 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         List<String> messages = objectErrors.stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
         MessageResponse error = new MessageResponse(messages);
         return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DuplicateKeyException.class)
+    public final ResponseEntity<MessageResponse> handleDuplicateKeyException(DuplicateKeyException ex, WebRequest request) {
+        MessageResponse error = new MessageResponse(ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)

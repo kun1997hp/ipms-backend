@@ -2,12 +2,12 @@ package com.viettel.demo.service;
 
 import com.viettel.demo.common.DataTable;
 import com.viettel.demo.common.message.ErrorMessage;
-import com.viettel.demo.exception.customexception.BusinessException;
 import com.viettel.demo.exception.customexception.RecordNotFoundException;
 import com.viettel.demo.model.entity.*;
 import com.viettel.demo.model.form.DeviceForm;
 import com.viettel.demo.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
-import java.util.List;
+import java.sql.Timestamp;
 import java.util.Optional;
 
 @Service
@@ -34,9 +34,9 @@ public class DeviceService {
     private ErrorMessage errorMessage;
 
     public Device insertDevice(DeviceForm deviceForm){
-        List<Device> devices = deviceRepository.findAllByDeviceNameEquals(deviceForm.getDeviceName());
-        if(devices.size() > 0){
-            throw new BusinessException(errorMessage.getIsbnNotDuplicate());
+        Optional<Device> deviceFromId = deviceRepository.findById(deviceForm.getDeviceId());
+        if(deviceFromId.isPresent()) {
+            throw new DuplicateKeyException(errorMessage.getDuplicateId());
         }
         Device device = Device.builder().deviceName(deviceForm.getDeviceName())
                 .serial(deviceForm.getSerial())
@@ -47,8 +47,8 @@ public class DeviceService {
                 .departmentId(deviceForm.getDepartmentId())
                 .locationId(deviceForm.getLocationId())
                 .status(deviceForm.getStatus())
-                .insertTime(deviceForm.getInsertTime())
-                .updateTime(deviceForm.getUpdateTime())
+                .insertTime(new Timestamp(System.currentTimeMillis()))
+                .updateTime(new Timestamp(System.currentTimeMillis()))
                 .build();
         return deviceRepository.save(device);
     }
@@ -76,8 +76,8 @@ public class DeviceService {
                 .departmentId(deviceForm.getDepartmentId())
                 .locationId(deviceForm.getLocationId())
                 .status(deviceForm.getStatus())
-                .insertTime(deviceForm.getInsertTime())
-                .updateTime(deviceForm.getUpdateTime())
+                .insertTime(deviceFromId.get().getInsertTime())
+                .updateTime(new Timestamp(System.currentTimeMillis()))
                 .build();
         deviceRepository.save(device);
     }
@@ -89,8 +89,8 @@ public class DeviceService {
         }
         return device;
     }
-    public DataTable findAllUsingJPQLPagingAndSorting(Specification<Device> specs, Pageable pageable){
-        Page<Device> devices = deviceRepository.findAllUsingJPQLPagingAndSorting(specs, pageable);
+    public DataTable findAllPagingAndSorting(Specification<Device> specs, Pageable pageable){
+        Page<Device> devices = deviceRepository.findAll(specs, pageable);
         return new DataTable(devices);
     }
 

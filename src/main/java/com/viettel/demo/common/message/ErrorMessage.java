@@ -15,5 +15,5 @@ public class ErrorMessage {
     private String recordNotFound;
     private String unexpectedError;
 
-    private String isbnNotDuplicate;
+    private String duplicateId;
 }
