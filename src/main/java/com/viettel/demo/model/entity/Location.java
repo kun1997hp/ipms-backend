@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @Entity
@@ -17,7 +17,7 @@ public class Location {
 
     @Id
     @Column(name = "location_id", unique = true, nullable = false)
-    private int locationId;
+    private Integer locationId;
 
     @Basic
     @Column(name = "location_code", nullable = false)
@@ -45,10 +45,10 @@ public class Location {
 
     @Basic
     @Column(name = "insert_time")
-    private Timestamp insertTime;
+    private Date insertTime;
 
     @Basic
     @Column(name = "update_time")
-    private Timestamp updateTime;
+    private Date updateTime;
 
 }

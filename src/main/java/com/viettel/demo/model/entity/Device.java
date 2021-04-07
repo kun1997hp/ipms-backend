@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @Entity
@@ -17,31 +17,39 @@ public class Device {
 
     @Id
     @Column(name = "device_id", unique = true, nullable = false)
-    private int deviceId;
+    private Integer deviceId;
 
     @Basic
-    @Column(name = "device_ip")
-    private String deviceIp;
+    @Column(name = "device_code", nullable = false)
+    private String deviceCode;
 
     @Basic
     @Column(name = "device_name")
     private String deviceName;
 
     @Basic
-    @Column(name = "serial")
-    private String serial;
+    @Column(name = "device_ip")
+    private String deviceIp;
+
+    @Basic
+    @Column(name = "device_ip_full")
+    private String deviceIpFull;
+
+    @Basic
+    @Column(name = "description")
+    private String description;
 
     @Basic
     @Column(name = "device_type_id")
     private Integer deviceTypeId;
 
     @Basic
-    @Column(name = "vendor_id")
-    private Integer vendorId;
-
-    @Basic
     @Column(name = "network_id")
     private Integer networkId;
+
+    @Basic
+    @Column(name = "vendor_id")
+    private Integer vendorId;
 
     @Basic
     @Column(name = "station_id")
@@ -56,15 +64,62 @@ public class Device {
     private Integer locationId;
 
     @Basic
+    @Column(name = "serial")
+    private String serial;
+
+    @Basic
     @Column(name = "status")
     private Integer status;
 
     @Basic
     @Column(name = "insert_time")
-    private Timestamp insertTime;
+    private Date insertTime;
 
     @Basic
     @Column(name = "update_time")
-    private Timestamp updateTime;
+    private Date updateTime;
 
+    @Basic
+    @Column(name = "check_ping")
+    private Integer checkPing;
+
+    @Basic
+    @Column(name = "auto_rescan")
+    private Integer autoRescan;
+
+    @Basic
+    @Column(name = "sys_description")
+    private String sysDescription;
+
+    @Basic
+    @Column(name = "sys_version")
+    private String sysVersion;
+
+    @Basic
+    @Column(name = "sys_series")
+    private String sysSeries;
+
+    @Basic
+    @Column(name = "snmp_status")
+    private Integer snmpStatus;
+
+    @Basic
+    @Column(name = "snmp_community")
+    private String snmpCommunity;
+
+    @Basic
+    @Column(name = "snmp_version")
+    private String snmpVersion;
+
+    @Basic
+    @Column(name = "bits")
+    private Integer bits;
+
+    @Basic
+    @Column(name = "table_syslog")
+    private String tableSyslog;
+
+    @Basic
+    @Column(name = "table_counter")
+    private String tableCounter;
 }
