@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -45,8 +45,8 @@ public class LocationService {
                 .parentId(locationForm.getParentId())
                 .locationLevelId(locationForm.getLocationLevelId())
                 .status(locationForm.getStatus())
-                .insertTime(new Date(System.currentTimeMillis()))
-                .updateTime(new Date(System.currentTimeMillis()))
+                .insertTime(new Date())
+                .updateTime(new Date())
                 .build();
         return locationRepository.save(location);
     }
@@ -72,7 +72,7 @@ public class LocationService {
                 .locationLevelId(locationForm.getLocationLevelId())
                 .status(locationForm.getStatus())
                 .insertTime(locationFromId.get().getInsertTime())
-                .updateTime(new Date(System.currentTimeMillis()))
+                .updateTime(new Date())
                 .build();
         locationRepository.save(location);
     }

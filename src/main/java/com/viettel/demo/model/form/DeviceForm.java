@@ -2,23 +2,34 @@ package com.viettel.demo.model.form;
 
 import lombok.Getter;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
 
 @Getter
 public class DeviceForm {
     private Integer deviceId;
-    private String deviceIp;
-    @NotBlank(message = "{deviceName.notBlank}")
+    @NotBlank(message = "{deviceCode.notBlank}")
+    private String deviceCode;
     private String deviceName;
-    private String serial;
+    private String deviceIp;
+    private String deviceIpFull;
+    private String description;
     private Integer deviceTypeId;
-    private Integer vendorId;
     private Integer networkId;
+    private Integer vendorId;
     private Integer stationId;
     private Integer departmentId;
     private Integer locationId;
+    private String serial;
     private Integer status;
+    private Integer checkPing;
+    private Integer autoRescan;
+    private String sysDescription;
+    private String sysVersion;
+    private String sysSeries;
+    private Integer snmpStatus;
+    private String snmpCommunity;
+    private String snmpVersion;
+    private Integer bits;
+    private String tableSyslog;
+    private String tableCounter;
 }

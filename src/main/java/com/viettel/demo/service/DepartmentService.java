@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -47,8 +47,8 @@ public class DepartmentService {
                 .departmentLevelId(departmentForm.getDepartmentLevelId())
                 .departmentTypeId(departmentForm.getDepartmentTypeId())
                 .status(departmentForm.getStatus())
-                .insertTime(new Date(System.currentTimeMillis()))
-                .updateTime(new Date(System.currentTimeMillis()))
+                .insertTime(new Date())
+                .updateTime(new Date())
                 .build();
         return departmentRepository.save(department);
     }
@@ -76,7 +76,7 @@ public class DepartmentService {
                 .departmentTypeId(departmentForm.getDepartmentTypeId())
                 .status(departmentForm.getStatus())
                 .insertTime(departmentFromId.get().getInsertTime())
-                .updateTime(new Date(System.currentTimeMillis()))
+                .updateTime(new Date())
                 .build();
         departmentRepository.save(department);
     }

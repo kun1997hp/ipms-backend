@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -38,17 +38,33 @@ public class DeviceService {
         if(deviceFromId.isPresent()) {
             throw new DuplicateKeyException(errorMessage.getDuplicateId());
         }
-        Device device = Device.builder().deviceName(deviceForm.getDeviceName())
-                .serial(deviceForm.getSerial())
+        Device device = Device.builder().deviceId(deviceForm.getDeviceId())
+                .deviceCode(deviceForm.getDeviceCode())
+                .deviceName(deviceForm.getDeviceName())
+                .deviceIp(deviceForm.getDeviceIp())
+                .deviceIpFull(deviceForm.getDeviceIpFull())
+                .description(deviceForm.getDescription())
                 .deviceTypeId(deviceForm.getDeviceTypeId())
-                .vendorId(deviceForm.getVendorId())
                 .networkId(deviceForm.getNetworkId())
+                .vendorId(deviceForm.getVendorId())
                 .stationId(deviceForm.getStationId())
                 .departmentId(deviceForm.getDepartmentId())
                 .locationId(deviceForm.getLocationId())
+                .serial(deviceForm.getSerial())
                 .status(deviceForm.getStatus())
-                .insertTime(new Date(System.currentTimeMillis()))
-                .updateTime(new Date(System.currentTimeMillis()))
+                .insertTime(new Date())
+                .updateTime(new Date())
+                .checkPing(deviceForm.getCheckPing())
+                .autoRescan(deviceForm.getAutoRescan())
+                .sysDescription(deviceForm.getSysDescription())
+                .sysVersion(deviceForm.getSysVersion())
+                .sysSeries(deviceForm.getSysSeries())
+                .snmpStatus(deviceForm.getSnmpStatus())
+                .snmpCommunity(deviceForm.getSnmpCommunity())
+                .snmpVersion(deviceForm.getSnmpVersion())
+                .bits(deviceForm.getBits())
+                .tableSyslog(deviceForm.getTableSyslog())
+                .tableCounter(deviceForm.getTableCounter())
                 .build();
         return deviceRepository.save(device);
     }
@@ -67,17 +83,32 @@ public class DeviceService {
             throw new RecordNotFoundException(errorMessage.getRecordNotFound());
         }
         Device device = Device.builder().deviceId(Integer.parseInt(deviceId))
+                .deviceCode(deviceForm.getDeviceCode())
                 .deviceName(deviceForm.getDeviceName())
-                .serial(deviceForm.getSerial())
+                .deviceIp(deviceForm.getDeviceIp())
+                .deviceIpFull(deviceForm.getDeviceIpFull())
+                .description(deviceForm.getDescription())
                 .deviceTypeId(deviceForm.getDeviceTypeId())
-                .vendorId(deviceForm.getVendorId())
                 .networkId(deviceForm.getNetworkId())
+                .vendorId(deviceForm.getVendorId())
                 .stationId(deviceForm.getStationId())
                 .departmentId(deviceForm.getDepartmentId())
                 .locationId(deviceForm.getLocationId())
+                .serial(deviceForm.getSerial())
                 .status(deviceForm.getStatus())
                 .insertTime(deviceFromId.get().getInsertTime())
-                .updateTime(new Date(System.currentTimeMillis()))
+                .updateTime(new Date())
+                .checkPing(deviceForm.getCheckPing())
+                .autoRescan(deviceForm.getAutoRescan())
+                .sysDescription(deviceForm.getSysDescription())
+                .sysVersion(deviceForm.getSysVersion())
+                .sysSeries(deviceForm.getSysSeries())
+                .snmpStatus(deviceForm.getSnmpStatus())
+                .snmpCommunity(deviceForm.getSnmpCommunity())
+                .snmpVersion(deviceForm.getSnmpVersion())
+                .bits(deviceForm.getBits())
+                .tableSyslog(deviceForm.getTableSyslog())
+                .tableCounter(deviceForm.getTableCounter())
                 .build();
         deviceRepository.save(device);
     }

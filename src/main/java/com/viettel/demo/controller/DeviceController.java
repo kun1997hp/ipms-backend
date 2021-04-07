@@ -8,6 +8,11 @@ import com.viettel.demo.common.response.ObjectResponse;
 import com.viettel.demo.model.entity.Device;
 import com.viettel.demo.model.form.DeviceForm;
 import com.viettel.demo.service.DeviceService;
+import net.kaczmarzyk.spring.data.jpa.domain.Equal;
+import net.kaczmarzyk.spring.data.jpa.domain.In;
+import net.kaczmarzyk.spring.data.jpa.domain.Like;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -60,7 +65,33 @@ public class DeviceController {
     }
 
     @GetMapping("/v0")
-    public ResponseEntity<DataTableResponse> getDevices(Specification<Device> specs, Pageable pageable) {
+    public ResponseEntity<DataTableResponse> getDevices(
+            @And({
+                    @Spec(path = "deviceCode", params = "deviceCodeEqual", spec = Equal.class),
+                    @Spec(path = "deviceName", params = "deviceNameLike", spec = Like.class),
+                    @Spec(path = "deviceIp", params = "deviceIpLike", spec = Like.class),
+                    @Spec(path = "deviceIpFull", params = "deviceIpFullLike", spec = Like.class),
+                    @Spec(path = "deviceTypeId", params = "deviceTypeIdEqual", spec = Equal.class),
+                    @Spec(path = "networkId", params = "networkIdEqual", spec = Equal.class),
+                    @Spec(path = "vendorId", params = "vendorIdEqual", spec = Equal.class),
+                    @Spec(path = "stationId", params = "stationIdEqual", spec = Equal.class),
+                    @Spec(path = "departmentId", params = "departmentIdEqual", spec = Equal.class),
+                    @Spec(path = "locationId", params = "locationIdEqual", spec = Equal.class),
+                    @Spec(path = "serial", params = "serialLike", spec = Like.class),
+                    @Spec(path = "status", params = "statusEqual", spec = Equal.class),
+                    @Spec(path = "insertTime", params = "insertTimeIn", paramSeparator = ',', spec = In.class),
+                    @Spec(path = "updateTime", params = "updateTimeIn", paramSeparator = ',', spec = In.class),
+                    @Spec(path = "checkPing", params = "checkPingEqual", spec = Equal.class),
+                    @Spec(path = "autoRescan", params = "autoRescanEqual", spec = Equal.class),
+                    @Spec(path = "sysVersion", params = "sysVersionEqual", spec = Equal.class),
+                    @Spec(path = "sysSeries", params = "sysSeriesEqual", spec = Equal.class),
+                    @Spec(path = "snmpStatus", params = "snmpStatusEqual", spec = Equal.class),
+                    @Spec(path = "snmpCommunity", params = "snmpCommunityEqual", spec = Equal.class),
+                    @Spec(path = "snmpVersion", params = "snmpVersionEqual", spec = Equal.class),
+                    @Spec(path = "bits", params = "bitsEqual", spec = Equal.class),
+                    @Spec(path = "tableSyslog", params = "tableSyslogEqual", spec = Equal.class),
+                    @Spec(path = "tableCounter", params = "tableCounterEqual", spec = Equal.class)
+            }) Specification<Device> specs, Pageable pageable) {
         DataTable dataTable = deviceService.findAllPagingAndSorting(specs, pageable);
         DataTableResponse response = new DataTableResponse(successMessage.getView(), dataTable);
         return new ResponseEntity<>(response, HttpStatus.OK);
