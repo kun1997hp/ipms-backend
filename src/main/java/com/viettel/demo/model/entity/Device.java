@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 @Data
 @Entity
@@ -17,7 +17,7 @@ public class Device {
 
     @Id
     @Column(name = "device_id", unique = true, nullable = false)
-    private int deviceId;
+    private Integer deviceId;
 
     @Basic
     @Column(name = "device_ip")
@@ -61,10 +61,10 @@ public class Device {
 
     @Basic
     @Column(name = "insert_time")
-    private Timestamp insertTime;
+    private Date insertTime;
 
     @Basic
     @Column(name = "update_time")
-    private Timestamp updateTime;
+    private Date updateTime;
 
 }

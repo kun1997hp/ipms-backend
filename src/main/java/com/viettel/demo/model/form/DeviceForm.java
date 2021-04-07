@@ -6,7 +6,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
 
 @Getter
 public class DeviceForm {

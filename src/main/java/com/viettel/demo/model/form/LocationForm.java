@@ -3,7 +3,6 @@ package com.viettel.demo.model.form;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
-import java.sql.Timestamp;
 
 @Getter
 public class LocationForm {

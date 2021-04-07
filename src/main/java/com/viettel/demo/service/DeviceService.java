@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.Optional;
 
 @Service
@@ -47,8 +47,8 @@ public class DeviceService {
                 .departmentId(deviceForm.getDepartmentId())
                 .locationId(deviceForm.getLocationId())
                 .status(deviceForm.getStatus())
-                .insertTime(new Timestamp(System.currentTimeMillis()))
-                .updateTime(new Timestamp(System.currentTimeMillis()))
+                .insertTime(new Date(System.currentTimeMillis()))
+                .updateTime(new Date(System.currentTimeMillis()))
                 .build();
         return deviceRepository.save(device);
     }
@@ -77,7 +77,7 @@ public class DeviceService {
                 .locationId(deviceForm.getLocationId())
                 .status(deviceForm.getStatus())
                 .insertTime(deviceFromId.get().getInsertTime())
-                .updateTime(new Timestamp(System.currentTimeMillis()))
+                .updateTime(new Date(System.currentTimeMillis()))
                 .build();
         deviceRepository.save(device);
     }

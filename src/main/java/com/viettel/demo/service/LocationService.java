@@ -2,7 +2,6 @@ package com.viettel.demo.service;
 
 import com.viettel.demo.common.DataTable;
 import com.viettel.demo.common.message.ErrorMessage;
-import com.viettel.demo.exception.customexception.BusinessException;
 import com.viettel.demo.exception.customexception.RecordNotFoundException;
 import com.viettel.demo.model.entity.*;
 import com.viettel.demo.model.form.LocationForm;
@@ -17,8 +16,8 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
+import java.sql.Date;
 import java.util.Optional;
-import java.sql.Timestamp;
 
 @Service
 public class LocationService {
@@ -46,8 +45,8 @@ public class LocationService {
                 .parentId(locationForm.getParentId())
                 .locationLevelId(locationForm.getLocationLevelId())
                 .status(locationForm.getStatus())
-                .insertTime(new Timestamp(System.currentTimeMillis()))
-                .updateTime(new Timestamp(System.currentTimeMillis()))
+                .insertTime(new Date(System.currentTimeMillis()))
+                .updateTime(new Date(System.currentTimeMillis()))
                 .build();
         return locationRepository.save(location);
     }
@@ -73,7 +72,7 @@ public class LocationService {
                 .locationLevelId(locationForm.getLocationLevelId())
                 .status(locationForm.getStatus())
                 .insertTime(locationFromId.get().getInsertTime())
-                .updateTime(new Timestamp(System.currentTimeMillis()))
+                .updateTime(new Date(System.currentTimeMillis()))
                 .build();
         locationRepository.save(location);
     }
