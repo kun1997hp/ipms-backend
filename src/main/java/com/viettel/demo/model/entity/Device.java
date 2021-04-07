@@ -12,13 +12,11 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "device", schema = "IPMS", catalog = "ipms_test")
+@Table(name = "cat_device", schema = "IPMS", catalog = "ipms_test")
 public class Device {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "devicesequence")
-    @SequenceGenerator(name = "devicesequence", sequenceName = "device_seq", allocationSize = 1,initialValue = 1)
-    @Column(name = "device_id")
+    @Column(name = "device_id", unique = true, nullable = false)
     private int deviceId;
 
     @Basic

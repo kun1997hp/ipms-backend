@@ -1,0 +1,410 @@
+{
+	"info": {
+		"_postman_id": "7e077113-13a7-4936-9c3e-a9f3a14bf9b7",
+		"name": "FMO Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "postBook",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"author\": \"\",\n    \"publisher\": \"\",\n    \"publishedDate\": \"2001-03-05T03:31:24.463+00:00\",\n    \"title\": \"\",\n    \"totalPages\": -8,\n    \"isbn\": \"10382130\",\n    \"bestSeller\": true\n}"
+				},
+				"url": {
+					"raw": "{{server}}/books",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateBook",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"author\": \"Nguyen Van Sang\",\n    \"publisher\": \"Kim Dong\",\n    \"publishedDate\": \"2001-03-05T03:31:24.463+00:00\",\n    \"title\": \"Hoa hong tren co xanh\",\n    \"totalPages\": 1243,\n    \"isbn\": \"10382932\",\n    \"bestSeller\": true\n}"
+				},
+				"url": {
+					"raw": "{{server}}/books/75",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"books",
+						"75"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteBook",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{server}}/books/76",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"books",
+						"76"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBookv0",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "ratingFrom",
+						"value": "4",
+						"disabled": true
+					},
+					{
+						"key": "publishedDateFrom=11-11-1980&publishedDateTo=11-11-2020",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{server}}/books/v0?page=0&size=10&sort=author,desc&authorLike=Nguyễn&publisherIn=Phụ Nữ,Thanh Niên&totalPagesTo=130&ratingFrom=3&bestSeller=true",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"books",
+						"v0"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "sort",
+							"value": "author,desc"
+						},
+						{
+							"key": "authorLike",
+							"value": "Nguyễn"
+						},
+						{
+							"key": "publisherIn",
+							"value": "Phụ Nữ,Thanh Niên"
+						},
+						{
+							"key": "totalPagesTo",
+							"value": "130"
+						},
+						{
+							"key": "ratingFrom",
+							"value": "3"
+						},
+						{
+							"key": "bestSeller",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBookv0 Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{server}}/books/v0?bestSellerEqual=true",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"books",
+						"v0"
+					],
+					"query": [
+						{
+							"key": "bestSellerEqual",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getQuestionsByAccountId | Paging, Sorting",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{server}}/questions/JDBC?accountId=1&page=2&pageSize=5&sortName=title&sortType=desc",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"questions",
+						"JDBC"
+					],
+					"query": [
+						{
+							"key": "accountId",
+							"value": "1"
+						},
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "pageSize",
+							"value": "5"
+						},
+						{
+							"key": "sortName",
+							"value": "title"
+						},
+						{
+							"key": "sortType",
+							"value": "desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postQuestion | Error 1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"accountId\": 1,\n\t\"title\": \"\",\n\t\"description\": \"\"\n}"
+				},
+				"url": {
+					"raw": "{{server}}/questions",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postQuestion | Error 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"accountId\": 1,\n\t\"title\": \"33\",\n\t\"description\": \"3\"\n"
+				},
+				"url": {
+					"raw": "{{server}}/questions",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "postQuestion",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"accountId\": 1,\n\t\"title\": \"This is the new title.\",\n\t\"description\": \"This is the description, but it will be overrided.\"\n}"
+				},
+				"url": {
+					"raw": "{{server}}/questions",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteQuestion",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{server}}/questions/125",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"questions",
+						"125"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "putQuestion",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"accountId\": 1,\n\t\"title\": \"(updated) This is the updated title.\",\n\t\"description\": \"1\"\n}"
+				},
+				"url": {
+					"raw": "{{server}}/questions/124",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"questions",
+						"124"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllQuestions | Paging, Sorting, Searching",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "title",
+						"value": "Who is someone you recently thought about that you haven't seen or talked to in years?"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{server}}/questions?page=0&size=8&sort=questionId,asc&titleLike=something that&questionIdGreater=30",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"questions"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "8"
+						},
+						{
+							"key": "sort",
+							"value": "questionId,asc"
+						},
+						{
+							"key": "titleLike",
+							"value": "something that"
+						},
+						{
+							"key": "questionIdGreater",
+							"value": "30"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "97029525-0008-41bc-8a33-5e7849c90840",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "50cd2987-cc5e-44b7-b0aa-362caf12d93b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "de70f9c4-0838-47f7-aecc-cf7385369b9e",
+			"key": "server",
+			"value": "10.240.202.123|localhost",
+			"type": "string"
+		}
+	]
+}

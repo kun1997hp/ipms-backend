@@ -1,7 +1,7 @@
 {
   "1000": "Không tìm thấy bản ghi.",
   "1001": "Lỗi không mong muốn. Vui lòng liên hệ admin để được hỗ trợ.",
-  "1002": "ISBN đã tồn tại. Vui lòng sử dụng ISBN khác.",
+  "1002": "ID đã tồn tại. Vui lòng sử dụng ID khác.",
   "2000": "Mô tả không được để trống.",
   "2001": "Tiêu đề không được để trống.",
   "2003": "Tên tác giả phải có từ 1 đến 256 ký tự.",

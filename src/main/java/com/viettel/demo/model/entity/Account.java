@@ -46,12 +46,4 @@ public class Account {
     @Column(name = "password")
     private String password;
 
-    /// <summary>
-    /// List of questions owned by the account
-    /// </summary>
-    /// <example>{{Question1}, {Question2}}</example>
-    @JsonIgnore
-    @OneToMany(mappedBy = "accountByAccountId")
-    private Collection<Question> questionsByAccountId;
-
 }

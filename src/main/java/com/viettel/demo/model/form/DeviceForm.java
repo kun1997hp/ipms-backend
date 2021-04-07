@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 
 @Getter
 public class DeviceForm {
+    private Integer deviceId;
     private String deviceIp;
     @NotBlank(message = "{deviceName.notBlank}")
     private String deviceName;
@@ -21,6 +22,4 @@ public class DeviceForm {
     private Integer departmentId;
     private Integer locationId;
     private Integer status;
-    private Timestamp insertTime;
-    private Timestamp updateTime;
 }
