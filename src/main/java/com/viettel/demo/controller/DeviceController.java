@@ -67,7 +67,7 @@ public class DeviceController {
     @GetMapping("/v0")
     public ResponseEntity<DataTableResponse> getDevices(
             @And({
-                    @Spec(path = "deviceCode", params = "deviceCodeEqual", spec = Equal.class),
+                    @Spec(path = "deviceCode", params = "deviceCodeLike", spec = Like.class),
                     @Spec(path = "deviceName", params = "deviceNameLike", spec = Like.class),
                     @Spec(path = "deviceIp", params = "deviceIpLike", spec = Like.class),
                     @Spec(path = "deviceIpFull", params = "deviceIpFullLike", spec = Like.class),
@@ -83,14 +83,15 @@ public class DeviceController {
                     @Spec(path = "updateTime", params = "updateTimeIn", paramSeparator = ',', spec = In.class),
                     @Spec(path = "checkPing", params = "checkPingEqual", spec = Equal.class),
                     @Spec(path = "autoRescan", params = "autoRescanEqual", spec = Equal.class),
-                    @Spec(path = "sysVersion", params = "sysVersionEqual", spec = Equal.class),
-                    @Spec(path = "sysSeries", params = "sysSeriesEqual", spec = Equal.class),
+                    @Spec(path = "sysDescription", params = "sysDescriptionLike", spec = Like.class),
+                    @Spec(path = "sysVersion", params = "sysVersionLike", spec = Like.class),
+                    @Spec(path = "sysSeries", params = "sysSeriesLike", spec = Like.class),
                     @Spec(path = "snmpStatus", params = "snmpStatusEqual", spec = Equal.class),
-                    @Spec(path = "snmpCommunity", params = "snmpCommunityEqual", spec = Equal.class),
-                    @Spec(path = "snmpVersion", params = "snmpVersionEqual", spec = Equal.class),
+                    @Spec(path = "snmpCommunity", params = "snmpCommunityLike", spec = Like.class),
+                    @Spec(path = "snmpVersion", params = "snmpVersionLike", spec = Like.class),
                     @Spec(path = "bits", params = "bitsEqual", spec = Equal.class),
-                    @Spec(path = "tableSyslog", params = "tableSyslogEqual", spec = Equal.class),
-                    @Spec(path = "tableCounter", params = "tableCounterEqual", spec = Equal.class)
+                    @Spec(path = "tableSyslog", params = "tableSyslogLike", spec = Like.class),
+                    @Spec(path = "tableCounter", params = "tableCounterLike", spec = Like.class)
             }) Specification<Device> specs, Pageable pageable) {
         DataTable dataTable = deviceService.findAllPagingAndSorting(specs, pageable);
         DataTableResponse response = new DataTableResponse(successMessage.getView(), dataTable);
