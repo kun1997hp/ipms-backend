@@ -55,13 +55,13 @@ public class Device {
     @Column(name = "station_id")
     private Integer stationId;
 
-    @Basic
-    @Column(name = "department_id")
-    private Integer departmentId;
+    @ManyToOne
+    @JoinColumn(name = "department_id", referencedColumnName = "department_id")
+    private Department departmentByDepartmentId;
 
-    @Basic
-    @Column(name = "location_id")
-    private Integer locationId;
+    @ManyToOne
+    @JoinColumn(name = "location_id", referencedColumnName = "location_id")
+    private Location locationByLocationId;
 
     @Basic
     @Column(name = "serial")

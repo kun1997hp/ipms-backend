@@ -3,6 +3,7 @@ package com.viettel.demo.model.form;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 public class DeviceForm {
@@ -17,7 +18,9 @@ public class DeviceForm {
     private Integer networkId;
     private Integer vendorId;
     private Integer stationId;
+    @NotNull(message = "{departmentId.notNull}")
     private Integer departmentId;
+    @NotNull(message = "{locationId.notNull}")
     private Integer locationId;
     private String serial;
     private Integer status;

@@ -1,11 +1,12 @@
 package com.viettel.demo.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import java.util.Date;
+import java.util.*;
 
 @Data
 @Entity
@@ -50,5 +51,9 @@ public class Location {
     @Basic
     @Column(name = "update_time")
     private Date updateTime;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "locationByLocationId")
+    private Collection<Device> devicesByLocationId;
 
 }
