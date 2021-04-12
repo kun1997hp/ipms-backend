@@ -12,6 +12,7 @@ import net.kaczmarzyk.spring.data.jpa.domain.Equal;
 import net.kaczmarzyk.spring.data.jpa.domain.In;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Join;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -77,6 +78,44 @@ public class DeviceController {
                     @Spec(path = "stationId", params = "stationId", spec = Equal.class),
                     @Spec(path = "departmentId", params = "departmentId", spec = Equal.class),
                     @Spec(path = "locationId", params = "locationId", spec = Equal.class),
+                    @Spec(path = "serial", params = "serial", spec = Like.class),
+                    @Spec(path = "status", params = "status", spec = Equal.class),
+                    @Spec(path = "insertTime", params = "insertTime", paramSeparator = ',', spec = In.class),
+                    @Spec(path = "updateTime", params = "updateTime", paramSeparator = ',', spec = In.class),
+                    @Spec(path = "checkPing", params = "checkPing", spec = Equal.class),
+                    @Spec(path = "autoRescan", params = "autoRescan", spec = Equal.class),
+                    @Spec(path = "sysDescription", params = "sysDescription", spec = Like.class),
+                    @Spec(path = "sysVersion", params = "sysVersion", spec = Like.class),
+                    @Spec(path = "sysSeries", params = "sysSeries", spec = Like.class),
+                    @Spec(path = "snmpStatus", params = "snmpStatus", spec = Equal.class),
+                    @Spec(path = "snmpCommunity", params = "snmpCommunity", spec = Like.class),
+                    @Spec(path = "snmpVersion", params = "snmpVersion", spec = Like.class),
+                    @Spec(path = "bits", params = "bits", spec = Equal.class),
+                    @Spec(path = "tableSyslog", params = "tableSyslog", spec = Like.class),
+                    @Spec(path = "tableCounter", params = "tableCounter", spec = Like.class)
+            }) Specification<Device> specs, Pageable pageable) {
+        DataTable dataTable = deviceService.findAllPagingAndSorting(specs, pageable);
+        DataTableResponse response = new DataTableResponse(successMessage.getView(), dataTable);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/v1")
+    public ResponseEntity<DataTableResponse> getDevicesV1(
+            @Join(path = "locationByLocationId", alias = "loc")
+            @Join(path = "departmentByDepartmentId", alias = "dept")
+            @And({
+                    @Spec(path = "deviceCode", params = "deviceCode", spec = Like.class),
+                    @Spec(path = "deviceName", params = "deviceName", spec = Like.class),
+                    @Spec(path = "deviceIp", params = "deviceIp", spec = Like.class),
+                    @Spec(path = "deviceIpFull", params = "deviceIpFull", spec = Like.class),
+
+                    @Spec(path = "deviceTypeId", params = "deviceTypeId", spec = Equal.class),
+                    @Spec(path = "networkId", params = "networkId", spec = Equal.class),
+                    @Spec(path = "vendorId", params = "vendorId", spec = Equal.class),
+                    @Spec(path = "stationId", params = "stationId", spec = Equal.class),
+                    @Spec(path = "dept.departmentName", params = "departmentName", spec = Like.class),
+                    @Spec(path = "loc.locationName", params="locationName", spec = Like.class),
+
                     @Spec(path = "serial", params = "serial", spec = Like.class),
                     @Spec(path = "status", params = "status", spec = Equal.class),
                     @Spec(path = "insertTime", params = "insertTime", paramSeparator = ',', spec = In.class),

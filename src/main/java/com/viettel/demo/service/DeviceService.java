@@ -5,7 +5,7 @@ import com.viettel.demo.common.message.ErrorMessage;
 import com.viettel.demo.exception.customexception.RecordNotFoundException;
 import com.viettel.demo.model.entity.*;
 import com.viettel.demo.model.form.DeviceForm;
-import com.viettel.demo.repository.DeviceRepository;
+import com.viettel.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
@@ -23,6 +23,12 @@ import java.util.Optional;
 public class DeviceService {
     @Autowired
     private DeviceRepository deviceRepository;
+
+    @Autowired
+    private LocationRepository locationRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -48,8 +54,8 @@ public class DeviceService {
                 .networkId(deviceForm.getNetworkId())
                 .vendorId(deviceForm.getVendorId())
                 .stationId(deviceForm.getStationId())
-                .departmentId(deviceForm.getDepartmentId())
-                .locationId(deviceForm.getLocationId())
+                .departmentByDepartmentId(departmentRepository.getDepartmentByDepartmentId(deviceForm.getDepartmentId()))
+                .locationByLocationId(locationRepository.getLocationByLocationId(deviceForm.getLocationId()))
                 .serial(deviceForm.getSerial())
                 .status(deviceForm.getStatus())
                 .insertTime(new Date())
@@ -92,8 +98,8 @@ public class DeviceService {
                 .networkId(deviceForm.getNetworkId())
                 .vendorId(deviceForm.getVendorId())
                 .stationId(deviceForm.getStationId())
-                .departmentId(deviceForm.getDepartmentId())
-                .locationId(deviceForm.getLocationId())
+                .departmentByDepartmentId(departmentRepository.getDepartmentByDepartmentId(deviceForm.getDepartmentId()))
+                .locationByLocationId(locationRepository.getLocationByLocationId(deviceForm.getLocationId()))
                 .serial(deviceForm.getSerial())
                 .status(deviceForm.getStatus())
                 .insertTime(deviceFromId.get().getInsertTime())
