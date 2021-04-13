@@ -11,6 +11,7 @@ import com.viettel.demo.service.DeviceService;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
 import net.kaczmarzyk.spring.data.jpa.domain.In;
 import net.kaczmarzyk.spring.data.jpa.domain.Like;
+import net.kaczmarzyk.spring.data.jpa.domain.LikeIgnoreCase;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Join;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
@@ -101,36 +102,41 @@ public class DeviceController {
 
     @GetMapping("/v1")
     public ResponseEntity<DataTableResponse> getDevicesV1(
-            @Join(path = "locationByLocationId", alias = "loc")
-            @Join(path = "departmentByDepartmentId", alias = "dept")
+            @Join(path = "locationByLocationId", alias = "location")
+            @Join(path = "departmentByDepartmentId", alias = "department")
+            @Join(path = "stationByStationId", alias = "station")
+            @Join(path = "vendorByVendorId", alias = "vendor")
+            @Join(path = "networkByNetworkId", alias = "network")
+            @Join(path = "deviceTypeByDeviceTypeId", alias = "deviceType")
             @And({
-                    @Spec(path = "deviceCode", params = "deviceCode", spec = Like.class),
-                    @Spec(path = "deviceName", params = "deviceName", spec = Like.class),
+                    @Spec(path = "deviceCode", params = "deviceCode", spec = LikeIgnoreCase.class),
+                    @Spec(path = "deviceName", params = "deviceName", spec = LikeIgnoreCase.class),
                     @Spec(path = "deviceIp", params = "deviceIp", spec = Like.class),
                     @Spec(path = "deviceIpFull", params = "deviceIpFull", spec = Like.class),
+                    @Spec(path = "description", params = "description", spec = LikeIgnoreCase.class),
 
-                    @Spec(path = "deviceTypeId", params = "deviceTypeId", spec = Equal.class),
-                    @Spec(path = "networkId", params = "networkId", spec = Equal.class),
-                    @Spec(path = "vendorId", params = "vendorId", spec = Equal.class),
-                    @Spec(path = "stationId", params = "stationId", spec = Equal.class),
-                    @Spec(path = "dept.departmentName", params = "departmentName", spec = Like.class),
-                    @Spec(path = "loc.locationName", params="locationName", spec = Like.class),
+                    @Spec(path = "deviceType.deviceTypeName", params = "deviceTypeName", spec = LikeIgnoreCase.class),
+                    @Spec(path = "network.networkName", params = "networkName", spec = LikeIgnoreCase.class),
+                    @Spec(path = "vendor.vendorName", params = "vendorName", spec = LikeIgnoreCase.class),
+                    @Spec(path = "station.stationName", params = "stationName", spec = LikeIgnoreCase.class),
+                    @Spec(path = "department.departmentName", params = "departmentName", spec = LikeIgnoreCase.class),
+                    @Spec(path = "location.locationName", params="locationName", spec = LikeIgnoreCase.class),
 
-                    @Spec(path = "serial", params = "serial", spec = Like.class),
+                    @Spec(path = "serial", params = "serial", spec = LikeIgnoreCase.class),
                     @Spec(path = "status", params = "status", spec = Equal.class),
                     @Spec(path = "insertTime", params = "insertTime", paramSeparator = ',', spec = In.class),
                     @Spec(path = "updateTime", params = "updateTime", paramSeparator = ',', spec = In.class),
                     @Spec(path = "checkPing", params = "checkPing", spec = Equal.class),
                     @Spec(path = "autoRescan", params = "autoRescan", spec = Equal.class),
-                    @Spec(path = "sysDescription", params = "sysDescription", spec = Like.class),
-                    @Spec(path = "sysVersion", params = "sysVersion", spec = Like.class),
-                    @Spec(path = "sysSeries", params = "sysSeries", spec = Like.class),
+                    @Spec(path = "sysDescription", params = "sysDescription", spec = LikeIgnoreCase.class),
+                    @Spec(path = "sysVersion", params = "sysVersion", spec = LikeIgnoreCase.class),
+                    @Spec(path = "sysSeries", params = "sysSeries", spec = LikeIgnoreCase.class),
                     @Spec(path = "snmpStatus", params = "snmpStatus", spec = Equal.class),
-                    @Spec(path = "snmpCommunity", params = "snmpCommunity", spec = Like.class),
-                    @Spec(path = "snmpVersion", params = "snmpVersion", spec = Like.class),
+                    @Spec(path = "snmpCommunity", params = "snmpCommunity", spec = LikeIgnoreCase.class),
+                    @Spec(path = "snmpVersion", params = "snmpVersion", spec = LikeIgnoreCase.class),
                     @Spec(path = "bits", params = "bits", spec = Equal.class),
-                    @Spec(path = "tableSyslog", params = "tableSyslog", spec = Like.class),
-                    @Spec(path = "tableCounter", params = "tableCounter", spec = Like.class)
+                    @Spec(path = "tableSyslog", params = "tableSyslog", spec = LikeIgnoreCase.class),
+                    @Spec(path = "tableCounter", params = "tableCounter", spec = LikeIgnoreCase.class)
             }) Specification<Device> specs, Pageable pageable) {
         DataTable dataTable = deviceService.findAllPagingAndSorting(specs, pageable);
         DataTableResponse response = new DataTableResponse(successMessage.getView(), dataTable);
