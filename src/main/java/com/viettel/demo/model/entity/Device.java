@@ -39,21 +39,21 @@ public class Device {
     @Column(name = "description")
     private String description;
 
-    @Basic
-    @Column(name = "device_type_id")
-    private Integer deviceTypeId;
+    @ManyToOne
+    @JoinColumn(name = "device_type_id", referencedColumnName = "device_type_id")
+    private DeviceType deviceTypeByDeviceTypeId;
 
-    @Basic
-    @Column(name = "network_id")
-    private Integer networkId;
+    @ManyToOne
+    @JoinColumn(name = "network_id", referencedColumnName = "network_id")
+    private Network networkByNetworkId;
 
-    @Basic
-    @Column(name = "vendor_id")
-    private Integer vendorId;
+    @ManyToOne
+    @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
+    private Vendor vendorByVendorId;
 
-    @Basic
-    @Column(name = "station_id")
-    private Integer stationId;
+    @ManyToOne
+    @JoinColumn(name = "station_id", referencedColumnName = "station_id")
+    private Station stationByStationId;
 
     @ManyToOne
     @JoinColumn(name = "department_id", referencedColumnName = "department_id")

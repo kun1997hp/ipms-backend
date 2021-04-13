@@ -30,6 +30,18 @@ public class DeviceService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
+    @Autowired
+    private StationRepository stationRepository;
+
+    @Autowired
+    private VendorRepository vendorRepository;
+
+    @Autowired
+    private NetworkRepository networkRepository;
+
+    @Autowired
+    private DeviceTypeRepository deviceTypeRepository;
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -50,10 +62,10 @@ public class DeviceService {
                 .deviceIp(deviceForm.getDeviceIp())
                 .deviceIpFull(deviceForm.getDeviceIpFull())
                 .description(deviceForm.getDescription())
-                .deviceTypeId(deviceForm.getDeviceTypeId())
-                .networkId(deviceForm.getNetworkId())
-                .vendorId(deviceForm.getVendorId())
-                .stationId(deviceForm.getStationId())
+                .deviceTypeByDeviceTypeId(deviceTypeRepository.getDeviceTypeByDeviceTypeId(deviceForm.getDeviceTypeId()))
+                .networkByNetworkId(networkRepository.getNetworkByNetworkId(deviceForm.getNetworkId()))
+                .vendorByVendorId(vendorRepository.getVendorByVendorId(deviceForm.getVendorId()))
+                .stationByStationId(stationRepository.getStationByStationId(deviceForm.getStationId()))
                 .departmentByDepartmentId(departmentRepository.getDepartmentByDepartmentId(deviceForm.getDepartmentId()))
                 .locationByLocationId(locationRepository.getLocationByLocationId(deviceForm.getLocationId()))
                 .serial(deviceForm.getSerial())
@@ -94,10 +106,10 @@ public class DeviceService {
                 .deviceIp(deviceForm.getDeviceIp())
                 .deviceIpFull(deviceForm.getDeviceIpFull())
                 .description(deviceForm.getDescription())
-                .deviceTypeId(deviceForm.getDeviceTypeId())
-                .networkId(deviceForm.getNetworkId())
-                .vendorId(deviceForm.getVendorId())
-                .stationId(deviceForm.getStationId())
+                .deviceTypeByDeviceTypeId(deviceTypeRepository.getDeviceTypeByDeviceTypeId(deviceForm.getDeviceTypeId()))
+                .networkByNetworkId(networkRepository.getNetworkByNetworkId(deviceForm.getNetworkId()))
+                .vendorByVendorId(vendorRepository.getVendorByVendorId(deviceForm.getVendorId()))
+                .stationByStationId(stationRepository.getStationByStationId(deviceForm.getStationId()))
                 .departmentByDepartmentId(departmentRepository.getDepartmentByDepartmentId(deviceForm.getDepartmentId()))
                 .locationByLocationId(locationRepository.getLocationByLocationId(deviceForm.getLocationId()))
                 .serial(deviceForm.getSerial())

@@ -14,9 +14,13 @@ public class DeviceForm {
     private String deviceIp;
     private String deviceIpFull;
     private String description;
+    @NotNull(message = "{deviceTypeId.notNull}")
     private Integer deviceTypeId;
+    @NotNull(message = "{networkId.notNull}")
     private Integer networkId;
+    @NotNull(message = "{vendorId.notNull}")
     private Integer vendorId;
+    @NotNull(message = "{stationId.notNull}")
     private Integer stationId;
     @NotNull(message = "{departmentId.notNull}")
     private Integer departmentId;
