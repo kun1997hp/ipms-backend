@@ -5,6 +5,7 @@ import com.viettel.demo.common.message.ErrorMessage;
 import com.viettel.demo.exception.customexception.RecordNotFoundException;
 import com.viettel.demo.model.entity.*;
 import com.viettel.demo.model.form.LocationForm;
+import com.viettel.demo.model.view.LocationNameView;
 import com.viettel.demo.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -17,6 +18,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -85,9 +87,8 @@ public class LocationService {
         return location;
     }
 
-    public DataTable findAllPagingAndSorting(Specification<Location> specs, Pageable pageable){
-        Page<Location> locations = locationRepository.findAll(specs, pageable);
-        return new DataTable(locations);
+    public List<LocationNameView> findBy(){
+        return locationRepository.findBy();
     }
 
 }
