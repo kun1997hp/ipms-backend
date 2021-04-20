@@ -26,5 +26,5 @@ springdoc:
 #    url: /sw.yaml
 
 # (Optional) Setting port
-#server:
-#  port: 1521
+server:
+  port: 8081
