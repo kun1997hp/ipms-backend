@@ -156,7 +156,7 @@ public class DeviceController {
                     @Spec(path = "deviceType.deviceTypeName", params = "deviceTypeName", spec = LikeIgnoreCase.class),
                     @Spec(path = "network.networkName", params = "networkName", spec = LikeIgnoreCase.class),
                     @Spec(path = "vendor.vendorName", params = "vendorName", spec = LikeIgnoreCase.class),
-                    @Spec(path = "station.stationName", params = "stationName", spec = LikeIgnoreCase.class),
+                    @Spec(path = "station.stationCode", params = "stationCode", spec = LikeIgnoreCase.class),
                     @Spec(path = "department.departmentName", params = "departmentName", spec = LikeIgnoreCase.class),
                     @Spec(path = "location.locationName", params="locationName", spec = LikeIgnoreCase.class),
 
