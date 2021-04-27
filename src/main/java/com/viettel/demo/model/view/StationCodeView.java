@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class StationNameView {
+public class StationCodeView {
     private Integer stationId;
-    private String stationName;
+    private String stationCode;
 }

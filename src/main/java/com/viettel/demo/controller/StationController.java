@@ -3,7 +3,7 @@ package com.viettel.demo.controller;
 import com.viettel.demo.common.message.SuccessMessage;
 import com.viettel.demo.common.response.ObjectResponse;
 import com.viettel.demo.model.entity.Station;
-import com.viettel.demo.model.view.StationNameView;
+import com.viettel.demo.model.view.StationCodeView;
 import com.viettel.demo.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ public class StationController {
 
     @GetMapping("/v0")
     public ResponseEntity<ObjectResponse> getStations() {
-        List<StationNameView> stations = stationService.findBy();
+        List<StationCodeView> stations = stationService.findBy();
         ObjectResponse response = new ObjectResponse(successMessage.getView(), stations);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

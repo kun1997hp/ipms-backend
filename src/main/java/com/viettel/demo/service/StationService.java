@@ -3,7 +3,7 @@ package com.viettel.demo.service;
 import com.viettel.demo.common.message.ErrorMessage;
 import com.viettel.demo.exception.customexception.RecordNotFoundException;
 import com.viettel.demo.model.entity.*;
-import com.viettel.demo.model.view.StationNameView;
+import com.viettel.demo.model.view.StationCodeView;
 import com.viettel.demo.repository.StationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +35,7 @@ public class StationService {
         return station;
     }
 
-    public List<StationNameView> findBy(){
+    public List<StationCodeView> findBy(){
         return stationRepository.findBy();
     }
 
