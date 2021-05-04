@@ -10,10 +10,7 @@ import com.viettel.demo.model.entity.Device;
 import com.viettel.demo.model.form.DeviceForm;
 import com.viettel.demo.service.DeviceService;
 import com.viettel.demo.util.FileUtils;
-import net.kaczmarzyk.spring.data.jpa.domain.Equal;
-import net.kaczmarzyk.spring.data.jpa.domain.In;
-import net.kaczmarzyk.spring.data.jpa.domain.Like;
-import net.kaczmarzyk.spring.data.jpa.domain.LikeIgnoreCase;
+import net.kaczmarzyk.spring.data.jpa.domain.*;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Join;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
@@ -162,8 +159,8 @@ public class DeviceController {
 
                     @Spec(path = "serial", params = "serial", spec = LikeIgnoreCase.class),
                     @Spec(path = "status", params = "status", spec = Equal.class),
-                    @Spec(path = "insertTime", params = "insertTime", paramSeparator = ',', spec = In.class),
-                    @Spec(path = "updateTime", params = "updateTime", paramSeparator = ',', spec = In.class),
+                    @Spec(path = "insertTime", params = "insertTime", paramSeparator = ',', spec = Between.class, config = "yyyy-MM-dd'T'HH:mm:ss"),
+                    @Spec(path = "updateTime", params = "updateTime", paramSeparator = ',', spec = Between.class, config = "yyyy-MM-dd'T'HH:mm:ss"),
                     @Spec(path = "checkPing", params = "checkPing", spec = Equal.class),
                     @Spec(path = "autoRescan", params = "autoRescan", spec = Equal.class),
                     @Spec(path = "sysDescription", params = "sysDescription", spec = LikeIgnoreCase.class),
