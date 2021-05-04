@@ -36,9 +36,9 @@ public class Network {
     @Column(name = "status")
     private Integer status;
 
-    @Basic
+    /*@Basic
     @Column(name = "module")
-    private String module;
+    private String module;*/
 
     @Basic
     @Column(name = "insert_time")
