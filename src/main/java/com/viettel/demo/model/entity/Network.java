@@ -52,4 +52,11 @@ public class Network {
     @OneToMany(mappedBy = "networkByNetworkId")
     private Collection<Device> devicesByNetworkId;
 
+    /*@JsonIgnore
+    @OneToMany(mappedBy = "networkByNetworkTypeId")
+    private Collection<MappingTableData> mappingTableDataByNetworkTypeId;*/
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "networkByNetworkClassId")
+    private Collection<MappingTableData> mappingTableDataByNetworkClassId;
 }
