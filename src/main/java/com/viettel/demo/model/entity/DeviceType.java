@@ -1,12 +1,11 @@
 package com.viettel.demo.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
 
 @Data
@@ -14,9 +13,8 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cat_device_type", schema = "IPMS", catalog = "ipms_test")
+@Table(name = "cat_device_type", schema = "IPMS")
 public class DeviceType {
-
     @Id
     @Column(name = "device_type_id", unique = true, nullable = false)
     private Integer deviceTypeId;
@@ -41,7 +39,9 @@ public class DeviceType {
     @Column(name = "update_time")
     private Date updateTime;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "deviceTypeByDeviceTypeId")
-    private Collection<Device> devicesByDeviceTypeId;
+//    @JsonIgnore
+//    @Fetch(FetchMode.SELECT)
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "deviceTypeByDeviceTypeId")
+//    @LazyCollection(LazyCollectionOption.EXTRA)
+//    private List<Device> devicesByDeviceTypeId = new ArrayList<>(0);
 }

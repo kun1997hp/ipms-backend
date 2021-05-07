@@ -5,6 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
@@ -14,7 +19,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cat_vendor", schema = "IPMS", catalog = "ipms_test")
+@Table(name = "cat_vendor", schema = "IPMS")
 public class Vendor {
 
     @Id
@@ -37,7 +42,9 @@ public class Vendor {
     @Column(name = "update_time")
     private Date updateTime;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "vendorByVendorId")
-    private Collection<Device> devicesByVendorId;
+//    @JsonIgnore
+//    @Fetch(FetchMode.SELECT)
+//    @LazyCollection(LazyCollectionOption.EXTRA)
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "vendorByVendorId")
+//    private Collection<Device> devicesByVendorId;
 }

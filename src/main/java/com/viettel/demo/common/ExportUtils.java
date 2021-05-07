@@ -26,7 +26,6 @@ public class ExportUtils {
         List<String> fieldNames  = new ArrayList<>();
         for(int i = 0; i < fields.length; i++) {
             fieldNames.add(fields[i].getName());
-            log.info(fieldNames.get(i));
         }
         return fieldNames;
     }
