@@ -17,7 +17,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "SL_CORE_UNKNOWN", schema = "IPMS")
-@Embeddable
 public class SyslogBase {
     @Id
     @Column(name = "ALARM_ID")

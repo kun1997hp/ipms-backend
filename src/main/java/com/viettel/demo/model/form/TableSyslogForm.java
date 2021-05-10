@@ -8,8 +8,8 @@ import java.util.Date;
 
 @Getter
 public class TableSyslogForm {
-    @NotBlank(message = "{tableSyslog.notBlank}")
-    private String tableSyslog;
+    @NotBlank(message = "{tableSyslogName.notBlank}")
+    private String tableSyslogName;
     private String whiteList;
     private String blackList;
     @NotNull(message = "{faultLevelId.notNull}")

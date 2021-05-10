@@ -21,7 +21,7 @@ public interface TableSyslogRepository extends JpaRepository<TableSyslog, String
     Page<TableSyslog> findAll(Pageable pageable);
 
 
-    TableSyslog getTableSyslogByTableSyslog(String tableSyslog);
+    TableSyslog getTableSyslogByTableSyslogName(String tableSyslog);
     @Query("select t from TableSyslog t")
 //    @Query(value = "select * from CAT_TABLE_SYSLOG", nativeQuery = true)
     Page<TableSyslog> findAllUsingJPQLPagingAndSorting(Pageable pageable);

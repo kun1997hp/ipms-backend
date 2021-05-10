@@ -21,7 +21,7 @@ public class TableSyslog {
 
     @Id
     @Column(name = "table_syslog", unique = true, nullable = false)
-    private String tableSyslog;
+    private String tableSyslogName;
 
     @Basic
     @Column(name = "white_list")

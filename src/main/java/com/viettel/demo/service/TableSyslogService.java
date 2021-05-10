@@ -38,11 +38,11 @@ public class TableSyslogService {
     private ErrorMessage errorMessage;
 
     public TableSyslog insertTableSyslog(TableSyslogForm tableSyslogForm){
-        Optional<TableSyslog> tableSyslogFromId = tableSyslogRepository.findById(tableSyslogForm.getTableSyslog());
+        Optional<TableSyslog> tableSyslogFromId = tableSyslogRepository.findById(tableSyslogForm.getTableSyslogName());
         if(tableSyslogFromId.isPresent()) {
             throw new DuplicateKeyException(errorMessage.getDuplicateId());
         }
-        TableSyslog tableSyslog = TableSyslog.builder().tableSyslog(tableSyslogForm.getTableSyslog())
+        TableSyslog tableSyslog = TableSyslog.builder().tableSyslogName(tableSyslogForm.getTableSyslogName())
                 .whiteList(tableSyslogForm.getWhiteList())
                 .blackList(tableSyslogForm.getBlackList())
                 .faultLevel(faultLevelRepository.getFaultLevelByFaultLevelId(tableSyslogForm.getFaultLevelId()))
@@ -66,7 +66,7 @@ public class TableSyslogService {
         if(!tableSyslogFromId.isPresent()) {
             throw new RecordNotFoundException(errorMessage.getRecordNotFound());
         }
-        TableSyslog tableSyslog = TableSyslog.builder().tableSyslog(tableSyslogName)
+        TableSyslog tableSyslog = TableSyslog.builder().tableSyslogName(tableSyslogName)
                 .whiteList(tableSyslogForm.getWhiteList())
                 .blackList(tableSyslogForm.getBlackList())
                 .faultLevel(faultLevelRepository.getFaultLevelByFaultLevelId(tableSyslogForm.getFaultLevelId()))
@@ -78,7 +78,7 @@ public class TableSyslogService {
     }
 
     public TableSyslog findTableSyslogById(String tableSyslogName) {
-        TableSyslog tableSyslog= tableSyslogRepository.getTableSyslogByTableSyslog(tableSyslogName);
+        TableSyslog tableSyslog= tableSyslogRepository.getTableSyslogByTableSyslogName(tableSyslogName);
         if (tableSyslog == null) {
             throw new RecordNotFoundException(errorMessage.getRecordNotFound());
         }

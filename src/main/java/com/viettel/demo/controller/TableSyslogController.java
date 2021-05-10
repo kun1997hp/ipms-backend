@@ -63,21 +63,6 @@ public class TableSyslogController {
         return new ResponseEntity<>(new MessageResponse(successMessage.getEdit()), HttpStatus.OK);
     }
 
-    @GetMapping("/v0")
-    public ResponseEntity<DataTableResponse> getTableSyslogs(
-            @And({
-                    @Spec(path = "whiteList", params = "whiteList", spec = Like.class),
-                    @Spec(path = "blackList", params = "blackList", spec = Like.class),
-                    @Spec(path = "faultLevelId", params = "faultLevelId", spec = Equal.class),
-                    @Spec(path = "status", params = "status", spec = Equal.class),
-                    @Spec(path = "insertTime", params = "insertTime", paramSeparator = ',', spec = In.class),
-                    @Spec(path = "updateTime", params = "updateTime", paramSeparator = ',', spec = In.class),
-                   }) Specification<TableSyslog> specs, Pageable pageable) {
-        DataTable dataTable = tableSyslogService.findAllPagingAndSorting(specs, pageable);
-        DataTableResponse response = new DataTableResponse(successMessage.getView(), dataTable);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
     @GetMapping("/v0/export")
     public ResponseEntity<Resource> getBooksExport(Pageable pageable) throws Exception {
         DataTable dataTable = tableSyslogService.findAllUsingJPQLPagingAndSorting(pageable);
@@ -99,7 +84,6 @@ public class TableSyslogController {
                     @Spec(path = "updateTime", params = "updateTime", paramSeparator = ',', spec = In.class),
                     @Spec(path = "status", params = "status", spec =  Equal.class),
             }) Specification<TableSyslog> specs, Pageable pageable) {
-//        DataTable dataTable = tableSyslogService.findA llPagingAndSorting(specs, pageable);
         DataTable dataTable = tableSyslogService.findAllPagingAndSorting(specs, pageable);
 
         DataTableResponse response = new DataTableResponse(successMessage.getView(), dataTable);
