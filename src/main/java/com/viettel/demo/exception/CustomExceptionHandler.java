@@ -3,6 +3,7 @@ package com.viettel.demo.exception;
 import com.viettel.demo.common.message.ErrorMessage;
 import com.viettel.demo.common.response.MessageResponse;
 import com.viettel.demo.exception.customexception.BusinessException;
+import com.viettel.demo.exception.customexception.InvalidInputException;
 import com.viettel.demo.exception.customexception.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,5 +74,11 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     public final ResponseEntity<MessageResponse> handleCommonException(Exception ex, WebRequest request) {
         MessageResponse error = new MessageResponse(errorMessage.getUnexpectedError());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(InvalidInputException.class)
+    public final ResponseEntity<MessageResponse> handleInvalidInputException(InvalidInputException ex, WebRequest request) {
+        MessageResponse error = new MessageResponse(ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }
