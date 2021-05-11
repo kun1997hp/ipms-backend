@@ -2,10 +2,12 @@ package com.viettel.demo.service;
 
 import com.viettel.demo.common.DataTable;
 import com.viettel.demo.common.message.ErrorMessage;
+import com.viettel.demo.exception.customexception.InvalidInputException;
 import com.viettel.demo.exception.customexception.RecordNotFoundException;
 import com.viettel.demo.model.entity.*;
 import com.viettel.demo.model.form.MappingTableDataForm;
 import com.viettel.demo.repository.MappingTableDataRepository;
+import com.viettel.demo.repository.NetworkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
@@ -32,6 +34,17 @@ public class MappingTableDataService {
     @Autowired
     private ErrorMessage errorMessage;
 
+    @Autowired
+    private NetworkRepository networkRepository;
+
+    public boolean isValidNetworkId(MappingTableDataForm mappingTableDataForm) {
+        if (networkRepository.getNetworkByNetworkId(mappingTableDataForm.getNetworkTypeId()).getParentId() != null)
+            return false;
+        else {
+            return networkRepository.getNetworkByNetworkId(mappingTableDataForm.getNetworkClassId()).getParentId() == mappingTableDataForm.getNetworkTypeId();
+        }
+    }
+
     public MappingTableData insertMappingTableData(MappingTableDataForm mappingTableDataForm){
         MappingTableData mappingTableDataFromId;
         if (mappingTableDataForm.getAreaId() != null) mappingTableDataFromId = mappingTableDataRepository.findByNetworkTypeIdAndNetworkClassIdAndAreaId(mappingTableDataForm.getNetworkTypeId(), mappingTableDataForm.getNetworkClassId(), mappingTableDataForm.getAreaId());
@@ -39,6 +52,7 @@ public class MappingTableDataService {
         if(mappingTableDataFromId != null) {
             throw new DuplicateKeyException(errorMessage.getDuplicateId());
         }
+        if (!isValidNetworkId(mappingTableDataForm)) throw new InvalidInputException(errorMessage.getInvalidInput());
         mappingTableDataRepository.insertMappingTableData(mappingTableDataForm.getAreaId(), new Date(), mappingTableDataForm.getModule(), mappingTableDataForm.getNetworkClassId(), mappingTableDataForm.getNetworkTypeId(), mappingTableDataForm.getStatus(), mappingTableDataForm.getTableCounter(), mappingTableDataForm.getTableCounterCustom(), mappingTableDataForm.getTableSyslog(), new Date());
         if (mappingTableDataForm.getAreaId() != null) return mappingTableDataRepository.findByNetworkTypeIdAndNetworkClassIdAndAreaId(mappingTableDataForm.getNetworkTypeId(), mappingTableDataForm.getNetworkClassId(), mappingTableDataForm.getAreaId());
         else return mappingTableDataRepository.findByNetworkTypeIdAndNetworkClassIdAndAreaId(mappingTableDataForm.getNetworkTypeId(), mappingTableDataForm.getNetworkClassId(), null);
@@ -61,6 +75,7 @@ public class MappingTableDataService {
         if (mappingTableDataFromId == null) {
             throw new RecordNotFoundException(errorMessage.getRecordNotFound());
         }
+        if (!isValidNetworkId(mappingTableDataForm)) throw new InvalidInputException(errorMessage.getInvalidInput());
         mappingTableDataRepository.updateMappingTableData(Integer.parseInt(networkTypeId), Integer.parseInt(networkClassId), areaId.equals("") ? null : Integer.parseInt(areaId), mappingTableDataForm.getAreaId(), mappingTableDataFromId.getInsertTime(), mappingTableDataForm.getModule(), mappingTableDataForm.getNetworkClassId(), mappingTableDataForm.getNetworkTypeId(), mappingTableDataForm.getStatus(), mappingTableDataForm.getTableCounter(), mappingTableDataForm.getTableCounterCustom(), mappingTableDataForm.getTableSyslog(), new Date());
     }
 
