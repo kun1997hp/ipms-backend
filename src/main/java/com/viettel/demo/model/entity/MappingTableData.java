@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Subselect;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -13,23 +14,29 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@IdClass(MappingTableDataId.class)
 @Table(name = "cat_mapping_table_data", schema = "IPMS", catalog = "ipms_test")
+@Subselect("select row_number() over (order by insert_time) as temp_id , t.* from cat_mapping_table_data t")
 public class MappingTableData implements Serializable {
 
-    /*@Id
-    @ManyToOne
-    @JoinColumn(name = "network_type_id", referencedColumnName = "network_id")
-    private Network networkByNetworkTypeId;*/
-
     @Id
+    private Long tempId;
+
+    @Column(name = "network_type_id")
+    private Integer networkTypeId;
     @ManyToOne
-    @JoinColumn(name = "network_class_id", referencedColumnName = "network_id")
+    @JoinColumn(name = "network_type_id", referencedColumnName = "network_id", insertable = false, updatable = false)
+    private Network networkByNetworkTypeId;
+
+    @Column(name = "network_class_id")
+    private Integer networkClassId;
+    @ManyToOne
+    @JoinColumn(name = "network_class_id", referencedColumnName = "network_id", insertable = false, updatable = false)
     private Network networkByNetworkClassId;
 
-    @Id
+    @Column(name = "area_id")
+    private Integer areaId;
     @ManyToOne
-    @JoinColumn(name = "area_id", referencedColumnName = "location_id")
+    @JoinColumn(name = "area_id", referencedColumnName = "location_id", insertable = false, updatable = false)
     private Location locationByAreaId;
 
     @Basic

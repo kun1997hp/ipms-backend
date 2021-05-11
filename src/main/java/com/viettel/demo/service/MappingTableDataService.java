@@ -5,9 +5,7 @@ import com.viettel.demo.common.message.ErrorMessage;
 import com.viettel.demo.exception.customexception.RecordNotFoundException;
 import com.viettel.demo.model.entity.*;
 import com.viettel.demo.model.form.MappingTableDataForm;
-import com.viettel.demo.repository.LocationRepository;
 import com.viettel.demo.repository.MappingTableDataRepository;
-import com.viettel.demo.repository.NetworkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
@@ -19,7 +17,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 import java.util.Date;
-import java.util.Optional;
 
 @Service
 public class MappingTableDataService {
@@ -35,66 +32,46 @@ public class MappingTableDataService {
     @Autowired
     private ErrorMessage errorMessage;
 
-    @Autowired
-    private NetworkRepository networkRepository;
-
-    @Autowired
-    private LocationRepository locationRepository;
-
     public MappingTableData insertMappingTableData(MappingTableDataForm mappingTableDataForm){
-        Optional<MappingTableData> mappingTableDataFromId = mappingTableDataRepository.findById(new MappingTableDataId(mappingTableDataForm.getNetworkClassId(), mappingTableDataForm.getAreaId()));
-        if(mappingTableDataFromId.isPresent()) {
+        MappingTableData mappingTableDataFromId;
+        if (mappingTableDataForm.getAreaId() != null) mappingTableDataFromId = mappingTableDataRepository.findByNetworkTypeIdAndNetworkClassIdAndAreaId(mappingTableDataForm.getNetworkTypeId(), mappingTableDataForm.getNetworkClassId(), mappingTableDataForm.getAreaId());
+        else mappingTableDataFromId = mappingTableDataRepository.findByNetworkTypeIdAndNetworkClassIdAndAreaId(mappingTableDataForm.getNetworkTypeId(), mappingTableDataForm.getNetworkClassId(), null);
+        if(mappingTableDataFromId != null) {
             throw new DuplicateKeyException(errorMessage.getDuplicateId());
         }
-        MappingTableData mappingTableData = MappingTableData.builder()
-//                .networkByNetworkTypeId(networkRepository.getNetworkByNetworkId(mappingTableDataForm.getNetworkTypeId()))
-                .networkByNetworkClassId(networkRepository.getNetworkByNetworkId(mappingTableDataForm.getNetworkClassId()))
-                .locationByAreaId(locationRepository.getLocationByLocationId(mappingTableDataForm.getAreaId()))
-                .module(mappingTableDataForm.getModule())
-                .tableSyslog(mappingTableDataForm.getTableSyslog())
-                .tableCounter(mappingTableDataForm.getTableCounter())
-                .tableCounterCustom(mappingTableDataForm.getTableCounterCustom())
-                .insertTime(new Date())
-                .updateTime(new Date())
-                .status(mappingTableDataForm.getStatus())
-                .build();
-        return mappingTableDataRepository.save(mappingTableData);
+        mappingTableDataRepository.insertMappingTableData(mappingTableDataForm.getAreaId(), new Date(), mappingTableDataForm.getModule(), mappingTableDataForm.getNetworkClassId(), mappingTableDataForm.getNetworkTypeId(), mappingTableDataForm.getStatus(), mappingTableDataForm.getTableCounter(), mappingTableDataForm.getTableCounterCustom(), mappingTableDataForm.getTableSyslog(), new Date());
+        if (mappingTableDataForm.getAreaId() != null) return mappingTableDataRepository.findByNetworkTypeIdAndNetworkClassIdAndAreaId(mappingTableDataForm.getNetworkTypeId(), mappingTableDataForm.getNetworkClassId(), mappingTableDataForm.getAreaId());
+        else return mappingTableDataRepository.findByNetworkTypeIdAndNetworkClassIdAndAreaId(mappingTableDataForm.getNetworkTypeId(), mappingTableDataForm.getNetworkClassId(), null);
     }
 
     public void deleteMappingTableData(String networkTypeId, String networkClassId, String areaId){
-        Optional<MappingTableData> mappingTableDataFromId = mappingTableDataRepository.findById(new MappingTableDataId( Integer.parseInt(networkClassId), Integer.parseInt(areaId)));
-        if(!mappingTableDataFromId.isPresent()) {
+        MappingTableData mappingTableDataFromId;
+        if (!areaId.equals("")) mappingTableDataFromId = mappingTableDataRepository.findByNetworkTypeIdAndNetworkClassIdAndAreaId(Integer.parseInt(networkTypeId), Integer.parseInt(networkClassId), Integer.parseInt(areaId));
+        else mappingTableDataFromId = mappingTableDataRepository.findByNetworkTypeIdAndNetworkClassIdAndAreaId(Integer.parseInt(networkTypeId), Integer.parseInt(networkClassId), null);
+        if (mappingTableDataFromId == null) {
             throw new RecordNotFoundException(errorMessage.getRecordNotFound());
         }
-        mappingTableDataRepository.delete(mappingTableDataFromId.get());
+        mappingTableDataRepository.deleteMappingTableData(Integer.parseInt(networkTypeId), Integer.parseInt(networkClassId), areaId.equals("") ? null : Integer.parseInt(areaId));
     }
 
     public void updateMappingTableData(String networkTypeId, String networkClassId, String areaId, MappingTableDataForm mappingTableDataForm){
-        Optional<MappingTableData> mappingTableDataFromId = mappingTableDataRepository.findById(new MappingTableDataId( Integer.parseInt(networkClassId), Integer.parseInt(areaId)));
-        if(!mappingTableDataFromId.isPresent()) {
+        MappingTableData mappingTableDataFromId;
+        if (!areaId.equals("")) mappingTableDataFromId = mappingTableDataRepository.findByNetworkTypeIdAndNetworkClassIdAndAreaId(Integer.parseInt(networkTypeId), Integer.parseInt(networkClassId), Integer.parseInt(areaId));
+        else mappingTableDataFromId = mappingTableDataRepository.findByNetworkTypeIdAndNetworkClassIdAndAreaId(Integer.parseInt(networkTypeId), Integer.parseInt(networkClassId), null);
+        if (mappingTableDataFromId == null) {
             throw new RecordNotFoundException(errorMessage.getRecordNotFound());
         }
-        MappingTableData mappingTableData = MappingTableData.builder()
-//                .networkByNetworkTypeId(networkRepository.getNetworkByNetworkId(mappingTableDataForm.getNetworkTypeId()))
-                .networkByNetworkClassId(networkRepository.getNetworkByNetworkId(mappingTableDataForm.getNetworkClassId()))
-                .locationByAreaId(locationRepository.getLocationByLocationId(mappingTableDataForm.getAreaId()))
-                .module(mappingTableDataForm.getModule())
-                .tableSyslog(mappingTableDataForm.getTableSyslog())
-                .tableCounter(mappingTableDataForm.getTableCounter())
-                .tableCounterCustom(mappingTableDataForm.getTableCounterCustom())
-                .insertTime(new Date())
-                .updateTime(new Date())
-                .status(mappingTableDataForm.getStatus())
-                .build();
-        mappingTableDataRepository.save(mappingTableData);
+        mappingTableDataRepository.updateMappingTableData(Integer.parseInt(networkTypeId), Integer.parseInt(networkClassId), areaId.equals("") ? null : Integer.parseInt(areaId), mappingTableDataForm.getAreaId(), mappingTableDataFromId.getInsertTime(), mappingTableDataForm.getModule(), mappingTableDataForm.getNetworkClassId(), mappingTableDataForm.getNetworkTypeId(), mappingTableDataForm.getStatus(), mappingTableDataForm.getTableCounter(), mappingTableDataForm.getTableCounterCustom(), mappingTableDataForm.getTableSyslog(), new Date());
     }
 
     public MappingTableData findMappingTableDataById(String networkTypeId, String networkClassId, String areaId) {
-        Optional<MappingTableData> mappingTableData = mappingTableDataRepository.findById(new MappingTableDataId( Integer.parseInt(networkClassId), Integer.parseInt(areaId)));
-        if(!mappingTableData.isPresent()) {
+        MappingTableData mappingTableDataFromId;
+        if (!areaId.equals("")) mappingTableDataFromId = mappingTableDataRepository.findByNetworkTypeIdAndNetworkClassIdAndAreaId(Integer.parseInt(networkTypeId), Integer.parseInt(networkClassId), Integer.parseInt(areaId));
+        else mappingTableDataFromId = mappingTableDataRepository.findByNetworkTypeIdAndNetworkClassIdAndAreaId(Integer.parseInt(networkTypeId), Integer.parseInt(networkClassId), null);
+        if (mappingTableDataFromId == null) {
             throw new RecordNotFoundException(errorMessage.getRecordNotFound());
         }
-        return mappingTableData.get();
+        return mappingTableDataFromId;
     }
 
     public DataTable findAllPagingAndSorting(Specification<MappingTableData> specs, Pageable pageable){
