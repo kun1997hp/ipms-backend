@@ -12,7 +12,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cat_device", schema = "IPMS", catalog = "ipms_test")
+@Table(name = "cat_device", schema = "IPMS")
 public class Device {
 
     @Id
@@ -39,27 +39,27 @@ public class Device {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "device_type_id", referencedColumnName = "device_type_id")
     private DeviceType deviceTypeByDeviceTypeId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "network_id", referencedColumnName = "network_id")
     private Network networkByNetworkId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
     private Vendor vendorByVendorId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "station_id", referencedColumnName = "station_id")
     private Station stationByStationId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id", referencedColumnName = "department_id")
     private Department departmentByDepartmentId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "location_id", referencedColumnName = "location_id")
     private Location locationByLocationId;
 

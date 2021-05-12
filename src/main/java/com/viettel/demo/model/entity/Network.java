@@ -5,6 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -13,7 +18,7 @@ import java.util.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cat_network", schema = "IPMS", catalog = "ipms_test")
+@Table(name = "cat_network", schema = "IPMS")
 public class Network {
 
     @Id
@@ -44,9 +49,11 @@ public class Network {
     @Column(name = "update_time")
     private Date updateTime;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "networkByNetworkId")
-    private Collection<Device> devicesByNetworkId;
+//    @JsonIgnore
+//    @Fetch(FetchMode.SELECT)
+//    @LazyCollection(LazyCollectionOption.EXTRA)
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "networkByNetworkId")
+//    private Collection<Device> devicesByNetworkId;
 
     @JsonIgnore
     @OneToMany(mappedBy = "networkByNetworkTypeId")
