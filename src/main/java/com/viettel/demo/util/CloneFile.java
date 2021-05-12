@@ -50,11 +50,13 @@ public class CloneFile {
                     baseRepository = baseModel + "Repository";
                     bases = new ArrayList<>(
                             Arrays.asList(baseTable,baseUrl,baseModel,baseController,baseService,baseRepository));
+                    System.out.println(baseUrl);
                     continue;
                 }
 
                 String tableName = tableNames[i].trim();
                 String url = tableName.replaceAll("_", "-").toLowerCase();
+                System.out.println(url);
                 String model = tableNameToModelName(tableName);
                 String controller = model + "Controller";
                 String service = model + "Service";
