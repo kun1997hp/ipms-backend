@@ -12,5 +12,11 @@ public interface NetworkRepository extends JpaRepository<Network, Integer> {
 
     List<NetworkNameView> findBy();
 
+    List<NetworkNameView> findByParentIdIsNull();
+
+    List<NetworkNameView> findByParentIdIsNotNull();
+
+    List<NetworkNameView> findByParentId(Integer parentId);
+
     Network getNetworkByNetworkId(int networkId);
 }
