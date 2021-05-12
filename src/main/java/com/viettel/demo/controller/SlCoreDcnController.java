@@ -7,10 +7,10 @@ import com.viettel.demo.common.response.DataTableResponse;
 import com.viettel.demo.common.response.MessageResponse;
 import com.viettel.demo.common.response.ObjectResponse;
 import com.viettel.demo.model.entity.Device;
-import com.viettel.demo.model.entity.SyslogBase;
+import com.viettel.demo.model.entity.SlCoreDcn;
 import com.viettel.demo.model.form.DeviceForm;
 import com.viettel.demo.service.DeviceService;
-import com.viettel.demo.service.SyslogBaseService;
+import com.viettel.demo.service.SlCoreDcnService;
 import com.viettel.demo.util.FileUtils;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
 import net.kaczmarzyk.spring.data.jpa.domain.In;
@@ -31,25 +31,16 @@ import javax.validation.Valid;
 import java.io.File;
 
 @RestController
-@RequestMapping("/syslogs")
-public class SyslogBaseController {
+@RequestMapping("/sl-core-dcn")
+public class SlCoreDcnController {
     @Autowired
-    private SyslogBaseService syslogBaseService;
+    private SlCoreDcnService slCoreDcnService;
 
     @Autowired
     private SuccessMessage successMessage;
 
-    @GetMapping("/v0/export")
-    public ResponseEntity<Resource> getBooksExport(Pageable pageable) throws Exception {
-        DataTable dataTable = syslogBaseService.findAllUsingJPQLPagingAndSorting(pageable);
-        int size=dataTable.getContent().size();
-        System.out.println(size);
-        File file = ExportUtils.writeExcel(SyslogBase.class, dataTable.getContent(), "SyslogBases");
-        return FileUtils.responseSourceFromFile(file);
-    }
-
     @GetMapping("/v1")
-    public ResponseEntity<DataTableResponse> getSyslogBaseV1(
+    public ResponseEntity<DataTableResponse> getSlCoreDcnV1(
             @And({
                     @Spec(path = "alarmId", params = "alarmId", spec = Equal.class),
                     @Spec(path = "deviceId", params = "deviceId", spec = Equal.class),
@@ -73,8 +64,8 @@ public class SyslogBaseController {
                     @Spec(path = "provinceName", params = "provinceName", spec = LikeIgnoreCase.class)
                     //date
                     //date
-            }) Specification<SyslogBase> specs, Pageable pageable) {
-        DataTable dataTable = syslogBaseService.findAllPagingAndSorting(specs, pageable);
+            }) Specification<SlCoreDcn> specs, Pageable pageable) {
+        DataTable dataTable = slCoreDcnService.findAllPagingAndSorting(specs, pageable);
         DataTableResponse response = new DataTableResponse(successMessage.getView(), dataTable);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

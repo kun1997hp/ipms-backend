@@ -4,7 +4,7 @@ import com.viettel.demo.common.DataTable;
 import com.viettel.demo.common.message.ErrorMessage;
 import com.viettel.demo.exception.customexception.RecordNotFoundException;
 import com.viettel.demo.model.entity.Device;
-import com.viettel.demo.model.entity.SyslogBase;
+import com.viettel.demo.model.entity.SlCorePs;
 import com.viettel.demo.model.form.DeviceForm;
 import com.viettel.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,9 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
-public class SyslogBaseService {
+public class SlCorePsService {
     @Autowired
-    private SyslogBaseRepository syslogBaseRepository;
+    private SlCorePsRepository slCorePsRepository;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -33,21 +33,8 @@ public class SyslogBaseService {
 
     @Autowired
     private ErrorMessage errorMessage;
-
-    public SyslogBase findDeviceById(Integer alarmId) {
-        SyslogBase syslogBase = syslogBaseRepository.getSyslogBaseByAlarmId(alarmId);
-        if (syslogBase == null) {
-            throw new RecordNotFoundException(errorMessage.getRecordNotFound());
-        }
-        return syslogBase;
+    public DataTable findAllPagingAndSorting(Specification<SlCorePs> specs, Pageable pageable){
+        Page<SlCorePs> slCorePss = slCorePsRepository.findAll(specs, pageable);
+        return new DataTable(slCorePss);
     }
-    public DataTable findAllPagingAndSorting(Specification<SyslogBase> specs, Pageable pageable){
-        Page<SyslogBase> syslogBases = syslogBaseRepository.findAll(specs, pageable);
-        return new DataTable(syslogBases);
-    }
-    public DataTable findAllUsingJPQLPagingAndSorting(Pageable pageable){
-        Page<SyslogBase> syslogBases = syslogBaseRepository.findAllUsingJPQLPagingAndSorting(pageable);
-        return new DataTable(syslogBases);
-    }
-
 }

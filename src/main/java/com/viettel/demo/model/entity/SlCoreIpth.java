@@ -16,8 +16,8 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "SL_CORE_UNKNOWN", schema = "IPMS")
-public class SyslogBase {
+@Table(name = "SL_CORE_IPTH", schema = "IPMS")
+public class SlCoreIpth {
     @Id
     @Column(name = "ALARM_ID")
     private Integer alarmId;
