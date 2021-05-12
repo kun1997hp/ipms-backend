@@ -39,4 +39,15 @@ public class NetworkService {
         return networkRepository.findBy();
     }
 
+    public List<NetworkNameView> findByParentIdIsNull(){
+        return networkRepository.findByParentIdIsNull();
+    }
+
+    public List<NetworkNameView> findByParentIdIsNotNull(){
+        return networkRepository.findByParentIdIsNotNull();
+    }
+
+    public List<NetworkNameView> findByParentId(String parentId){
+        return networkRepository.findByParentId(Integer.parseInt(parentId));
+    }
 }
