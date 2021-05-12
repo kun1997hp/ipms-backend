@@ -41,10 +41,6 @@ public class Network {
     @Column(name = "status")
     private Integer status;
 
-    /*@Basic
-    @Column(name = "module")
-    private String module;*/
-
     @Basic
     @Column(name = "insert_time")
     private Date insertTime;
@@ -59,4 +55,11 @@ public class Network {
 //    @OneToMany(fetch = FetchType.EAGER, mappedBy = "networkByNetworkId")
 //    private Collection<Device> devicesByNetworkId;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "networkByNetworkTypeId")
+    private Collection<MappingTableData> mappingTableDataByNetworkTypeId;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "networkByNetworkClassId")
+    private Collection<MappingTableData> mappingTableDataByNetworkClassId;
 }

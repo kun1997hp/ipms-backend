@@ -14,6 +14,6 @@ import org.springframework.context.annotation.PropertySource;
 public class ErrorMessage {
     private String recordNotFound;
     private String unexpectedError;
-
     private String duplicateId;
+    private String invalidInput;
 }

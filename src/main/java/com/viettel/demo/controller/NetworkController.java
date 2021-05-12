@@ -35,4 +35,25 @@ public class NetworkController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping("/networkTypes")
+    public ResponseEntity<ObjectResponse> getNetworkTypes() {
+        List<NetworkNameView> networks = networkService.findByParentIdIsNull();
+        ObjectResponse response = new ObjectResponse(successMessage.getView(), networks);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/networkClasses/")
+    public ResponseEntity<ObjectResponse> getNetworkClasses() {
+        List<NetworkNameView> networks = networkService.findByParentIdIsNotNull();
+        ObjectResponse response = new ObjectResponse(successMessage.getView(), networks);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/networkClasses/{networkTypeId}")
+    public ResponseEntity<ObjectResponse> getNetworkClasses(@PathVariable("networkTypeId") String networkTypeId) {
+        List<NetworkNameView> networks = networkService.findByParentId(networkTypeId);
+        ObjectResponse response = new ObjectResponse(successMessage.getView(), networks);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

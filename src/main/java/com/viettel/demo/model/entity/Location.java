@@ -63,4 +63,7 @@ public class Location {
 //    @OneToMany(fetch = FetchType.EAGER, mappedBy = "locationByLocationId")
 //    private Collection<Device> devicesByLocationId;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "locationByAreaId")
+    private Collection<MappingTableData> mappingTableDataByLocationId;
 }
