@@ -75,14 +75,15 @@ public class DeviceService {
                 .checkPing(deviceForm.getCheckPing())
                 .autoRescan(deviceForm.getAutoRescan())
                 .sysDescription(deviceForm.getSysDescription())
-                .sysVersion(deviceForm.getSysVersion())
-                .sysSeries(deviceForm.getSysSeries())
                 .snmpStatus(deviceForm.getSnmpStatus())
                 .snmpCommunity(deviceForm.getSnmpCommunity())
                 .snmpVersion(deviceForm.getSnmpVersion())
                 .bits(deviceForm.getBits())
                 .tableSyslog(deviceForm.getTableSyslog())
                 .tableCounter(deviceForm.getTableCounter())
+                .tableCounterCustom(deviceForm.getTableCounterCustom())
+                .module(deviceForm.getModule())
+                .customScrip(deviceForm.getCustomScrip())
                 .build();
         return deviceRepository.save(device);
     }
@@ -119,14 +120,15 @@ public class DeviceService {
                 .checkPing(deviceForm.getCheckPing())
                 .autoRescan(deviceForm.getAutoRescan())
                 .sysDescription(deviceForm.getSysDescription())
-                .sysVersion(deviceForm.getSysVersion())
-                .sysSeries(deviceForm.getSysSeries())
                 .snmpStatus(deviceForm.getSnmpStatus())
                 .snmpCommunity(deviceForm.getSnmpCommunity())
                 .snmpVersion(deviceForm.getSnmpVersion())
                 .bits(deviceForm.getBits())
                 .tableSyslog(deviceForm.getTableSyslog())
                 .tableCounter(deviceForm.getTableCounter())
+                .tableCounterCustom(deviceForm.getTableCounterCustom())
+                .module(deviceForm.getModule())
+                .customScrip(deviceForm.getCustomScrip())
                 .build();
         deviceRepository.save(device);
     }
