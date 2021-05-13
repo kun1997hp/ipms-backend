@@ -92,14 +92,6 @@ public class Device {
     private String sysDescription;
 
     @Basic
-    @Column(name = "sys_version")
-    private String sysVersion;
-
-    @Basic
-    @Column(name = "sys_series")
-    private String sysSeries;
-
-    @Basic
     @Column(name = "snmp_status")
     private Integer snmpStatus;
 
@@ -122,4 +114,16 @@ public class Device {
     @Basic
     @Column(name = "table_counter")
     private String tableCounter;
+
+    @Basic
+    @Column(name = "table_counter_custom")
+    private String tableCounterCustom;
+
+    @Basic
+    @Column(name = "module")
+    private String module;
+
+    @Basic
+    @Column(name = "custom_scrip")
+    private String customScrip;
 }

@@ -88,14 +88,15 @@ public class DeviceController {
                     @Spec(path = "checkPing", params = "checkPing", spec = Equal.class),
                     @Spec(path = "autoRescan", params = "autoRescan", spec = Equal.class),
                     @Spec(path = "sysDescription", params = "sysDescription", spec = Like.class),
-                    @Spec(path = "sysVersion", params = "sysVersion", spec = Like.class),
-                    @Spec(path = "sysSeries", params = "sysSeries", spec = Like.class),
                     @Spec(path = "snmpStatus", params = "snmpStatus", spec = Equal.class),
                     @Spec(path = "snmpCommunity", params = "snmpCommunity", spec = Like.class),
                     @Spec(path = "snmpVersion", params = "snmpVersion", spec = Like.class),
                     @Spec(path = "bits", params = "bits", spec = Equal.class),
                     @Spec(path = "tableSyslog", params = "tableSyslog", spec = Like.class),
-                    @Spec(path = "tableCounter", params = "tableCounter", spec = Like.class)
+                    @Spec(path = "tableCounter", params = "tableCounter", spec = Like.class),
+                    @Spec(path = "tableCounterCustom", params = "tableCounterCustom", spec = Like.class),
+                    @Spec(path = "module", params = "module", spec = Like.class),
+                    @Spec(path = "customScrip", params = "customScrip", spec = Like.class)
             }) Specification<Device> specs, Pageable pageable) {
         DataTable dataTable = deviceService.findAllPagingAndSorting(specs, pageable);
         DataTableResponse response = new DataTableResponse(successMessage.getView(), dataTable);
@@ -121,14 +122,15 @@ public class DeviceController {
             @Spec(path = "checkPing", params = "checkPing", spec = Equal.class),
             @Spec(path = "autoRescan", params = "autoRescan", spec = Equal.class),
             @Spec(path = "sysDescription", params = "sysDescription", spec = Like.class),
-            @Spec(path = "sysVersion", params = "sysVersion", spec = Like.class),
-            @Spec(path = "sysSeries", params = "sysSeries", spec = Like.class),
             @Spec(path = "snmpStatus", params = "snmpStatus", spec = Equal.class),
             @Spec(path = "snmpCommunity", params = "snmpCommunity", spec = Like.class),
             @Spec(path = "snmpVersion", params = "snmpVersion", spec = Like.class),
             @Spec(path = "bits", params = "bits", spec = Equal.class),
             @Spec(path = "tableSyslog", params = "tableSyslog", spec = Like.class),
-            @Spec(path = "tableCounter", params = "tableCounter", spec = Like.class)
+            @Spec(path = "tableCounter", params = "tableCounter", spec = Like.class),
+            @Spec(path = "tableCounterCustom", params = "tableCounterCustom", spec = Like.class),
+            @Spec(path = "module", params = "module", spec = Like.class),
+            @Spec(path = "customScrip", params = "customScrip", spec = Like.class)
     }) Specification<Device> specs, Pageable pageable) throws Exception {
         DataTable dataTable = deviceService.findAllPagingAndSorting(specs, pageable);
         File file = ExportUtils.writeExcel(Device.class, dataTable.getContent(), "Devices");
@@ -164,14 +166,15 @@ public class DeviceController {
                     @Spec(path = "checkPing", params = "checkPing", spec = Equal.class),
                     @Spec(path = "autoRescan", params = "autoRescan", spec = Equal.class),
                     @Spec(path = "sysDescription", params = "sysDescription", spec = LikeIgnoreCase.class),
-                    @Spec(path = "sysVersion", params = "sysVersion", spec = LikeIgnoreCase.class),
-                    @Spec(path = "sysSeries", params = "sysSeries", spec = LikeIgnoreCase.class),
                     @Spec(path = "snmpStatus", params = "snmpStatus", spec = Equal.class),
                     @Spec(path = "snmpCommunity", params = "snmpCommunity", spec = LikeIgnoreCase.class),
                     @Spec(path = "snmpVersion", params = "snmpVersion", spec = LikeIgnoreCase.class),
                     @Spec(path = "bits", params = "bits", spec = Equal.class),
                     @Spec(path = "tableSyslog", params = "tableSyslog", spec = LikeIgnoreCase.class),
-                    @Spec(path = "tableCounter", params = "tableCounter", spec = LikeIgnoreCase.class)
+                    @Spec(path = "tableCounter", params = "tableCounter", spec = LikeIgnoreCase.class),
+                    @Spec(path = "tableCounterCustom", params = "tableCounterCustom", spec = LikeIgnoreCase.class),
+                    @Spec(path = "module", params = "module", spec = LikeIgnoreCase.class),
+                    @Spec(path = "customScrip", params = "customScrip", spec = LikeIgnoreCase.class)
             }) Specification<Device> specs, Pageable pageable) {
         DataTable dataTable = deviceService.findAllPagingAndSorting(specs, pageable);
         DataTableResponse response = new DataTableResponse(successMessage.getView(), dataTable);

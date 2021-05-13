@@ -31,12 +31,13 @@ public class DeviceForm {
     private Integer checkPing;
     private Integer autoRescan;
     private String sysDescription;
-    private String sysVersion;
-    private String sysSeries;
     private Integer snmpStatus;
     private String snmpCommunity;
     private String snmpVersion;
     private Integer bits;
     private String tableSyslog;
     private String tableCounter;
+    private String tableCounterCustom;
+    private String module;
+    private String customScrip;
 }

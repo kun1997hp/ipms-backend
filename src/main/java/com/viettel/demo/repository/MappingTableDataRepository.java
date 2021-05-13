@@ -1,7 +1,6 @@
 package com.viettel.demo.repository;
 
 import com.viettel.demo.model.entity.MappingTableData;
-import com.viettel.demo.model.entity.MappingTableDataId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -14,7 +13,7 @@ import javax.transaction.Transactional;
 import java.util.Date;
 
 @Repository
-public interface MappingTableDataRepository extends JpaRepository<MappingTableData, MappingTableDataId> {
+public interface MappingTableDataRepository extends JpaRepository<MappingTableData, Long> {
 
     Page<MappingTableData> findAll(Specification<MappingTableData> specs, Pageable pageable);
 
