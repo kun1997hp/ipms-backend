@@ -42,7 +42,7 @@ public class NetworkController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/networkClasses/")
+    @GetMapping("/networkClasses")
     public ResponseEntity<ObjectResponse> getNetworkClasses() {
         List<NetworkNameView> networks = networkService.findByParentIdIsNotNull();
         ObjectResponse response = new ObjectResponse(successMessage.getView(), networks);

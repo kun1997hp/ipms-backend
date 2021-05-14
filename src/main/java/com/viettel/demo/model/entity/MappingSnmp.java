@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Subselect;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -15,40 +14,32 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "cat_mapping_snmp", schema = "IPMS", catalog = "ipms_test")
-@Subselect("select row_number() over (order by insert_time) as temp_id , t.* from cat_mapping_snmp t")
 public class MappingSnmp implements Serializable {
 
     @Id
-    private Long tempId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mappingTableDataSeq")
+    @SequenceGenerator(name = "mappingTableDataSeq", sequenceName = "cat_mapping_table_data_seq", allocationSize = 1,initialValue = 1)
+    @Column(name = "id")
+    private Integer id;
 
-    @Column(name = "network_type_id")
-    private Integer networkTypeId;
-    @ManyToOne
-    @JoinColumn(name = "network_type_id", referencedColumnName = "network_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "network_type_id", referencedColumnName = "network_id")
     private Network networkByNetworkTypeId;
 
-    @Column(name = "network_class_id")
-    private Integer networkClassId;
-    @ManyToOne
-    @JoinColumn(name = "network_class_id", referencedColumnName = "network_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "network_class_id", referencedColumnName = "network_id")
     private Network networkByNetworkClassId;
 
-    @Column(name = "vendor_id")
-    private Integer vendorId;
-    @ManyToOne
-    @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
     private Vendor vendorByVendorId;
 
-    @Column(name = "device_type_id")
-    private Integer deviceTypeId;
-    @ManyToOne
-    @JoinColumn(name = "device_type_id", referencedColumnName = "device_type_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "device_type_id", referencedColumnName = "device_type_id")
     private DeviceType deviceTypeByDeviceTypeId;
 
-    @Column(name = "area_id")
-    private Integer areaId;
-    @ManyToOne
-    @JoinColumn(name = "area_id", referencedColumnName = "location_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "area_id", referencedColumnName = "location_id")
     private Location locationByAreaId;
 
     @Basic
